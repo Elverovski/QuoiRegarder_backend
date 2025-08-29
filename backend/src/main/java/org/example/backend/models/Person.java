@@ -10,7 +10,7 @@ public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int id;
-    public String name;
+    public String nom;
     public String prenom;
     public String email;
     public String genre;
@@ -23,12 +23,12 @@ public class Person {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getNom() {
+        return nom;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
     public String getPrenom() {
