@@ -22,7 +22,7 @@ public class PersonService {
     public List<Person> findPersonsByName(String name) {
         return personRepository.findPersonByNom(name);
     }
-
+    
 
 
 }

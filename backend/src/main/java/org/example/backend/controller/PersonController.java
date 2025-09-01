@@ -4,10 +4,7 @@ import org.example.backend.models.Person;
 import org.example.backend.repository.PersonRepository;
 import org.example.backend.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,5 +22,10 @@ public class PersonController {
     @GetMapping
     public List<Person> getAllPersons() {
         return service.findAllPersons();
+    }
+
+    @GetMapping("/search")
+    public List<Person> getPersonByName(@RequestParam String name) {
+        return service.findPersonsByName(name);
     }
 }
