@@ -19,7 +19,7 @@ public class PersonController {
         this.service = service;
     }
 
-    @GetMapping
+    @GetMapping("/getAllPersons")
     public List<Person> getAllPersons() {
         return service.findAllPersons();
     }
@@ -28,4 +28,21 @@ public class PersonController {
     public List<Person> getPersonByName(@RequestParam String name) {
         return service.findPersonsByName(name);
     }
+
+    @PostMapping("/createPerson")
+    public Person createPerson(@RequestBody Person newPerson) {
+        return service.createPerson(newPerson);
+    }
+
+    @PutMapping("/updatePerson/{id}")
+    public Person updatePerson(@RequestBody Person newOne, @PathVariable Long id) {
+        return service.updatePerson(newOne, id);
+    }
+
+    @DeleteMapping("/deletePerson/{id}")
+    public void deletePerson(@PathVariable Long id) {
+        service.deletePerson(id);
+    }
+
+
 }
