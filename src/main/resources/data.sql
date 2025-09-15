@@ -1,10 +1,3 @@
-create table if not exists Person (
-                        id INT,
-                        nom VARCHAR(50),
-                        prenom VARCHAR(50),
-                        email VARCHAR(50),
-                        genre VARCHAR(50)
-);
 insert into Person (id, nom, prenom, email, genre) values (1, 'Stainer', 'Peirce', 'pstainer0@earthlink.net', 'Male');
 insert into Person (id, nom, prenom, email, genre) values (2, 'Lazer', 'Fifine', 'flazer1@google.co.jp', 'Female');
 insert into Person (id, nom, prenom, email, genre) values (3, 'Hanley', 'Aguie', 'ahanley2@yandex.ru', 'Male');
@@ -35,3 +28,5 @@ insert into Person (id, nom, prenom, email, genre) values (27, 'Ashelford', 'Meg
 insert into Person (id, nom, prenom, email, genre) values (28, 'Tremblot', 'Jasen', 'jtremblotr@senate.gov', 'Male');
 insert into Person (id, nom, prenom, email, genre) values (29, 'Burgess', 'Drusie', 'dburgesss@cam.ac.uk', 'Female');
 insert into Person (id, nom, prenom, email, genre) values (30, 'McGourty', 'Nicolina', 'nmcgourtyt@google.co.uk', 'Female');
+
+insert into Serie (id, titre, genre, nbepisodes, note) values (1, 'Dexter', 'Crime/Thriller', 96, '8.6');
