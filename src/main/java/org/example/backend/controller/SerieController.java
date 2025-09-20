@@ -18,6 +18,7 @@ public class SerieController {
         this.service = service;
     }
 
+    // Get
     @GetMapping("/getAllSeries")
     public List<Serie> getAllSeries(){
         return service.findAllSeries();
@@ -28,18 +29,9 @@ public class SerieController {
         return service.findSeriesByName(name);
     }
 
-    @PostMapping("/createSerie")
-    public Serie createSerie(@RequestBody Serie newSerie){
-        return service.createSerie(newSerie);
-    }
-
-    @PutMapping("/updateSerie/{id}")
-    public Serie updateSerie(@RequestBody Serie newOne, @PathVariable Long id){
-        return service.updateSerie(newOne, id);
-    }
-    @DeleteMapping("/deleteSerie/{id}")
-    public void deleteSerie(@PathVariable Long id){
-        service.deleteSerie(id);
+    @GetMapping("/getSerieById")
+    public Serie getSerieById(@RequestParam Long id){
+        return service.findSeriesById(id);
     }
 
     @GetMapping("/searchSerie")
@@ -57,6 +49,25 @@ public class SerieController {
             return service.findAllSeries();
         }
     }
+
+    // Post
+    @PostMapping("/createSerie")
+    public Serie createSerie(@RequestBody Serie newSerie){
+        return service.createSerie(newSerie);
+    }
+
+    // Put
+    @PutMapping("/updateSerie/{id}")
+    public Serie updateSerie(@RequestBody Serie newOne, @PathVariable Long id){
+        return service.updateSerie(newOne, id);
+    }
+
+    // Delete
+    @DeleteMapping("/deleteSerie/{id}")
+    public void deleteSerie(@PathVariable Long id){
+        service.deleteSerie(id);
+    }
+
 
 
 }

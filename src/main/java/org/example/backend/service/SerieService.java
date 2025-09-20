@@ -24,6 +24,10 @@ public class SerieService {
         return serieRepository.findSerieByTitre(titre);
     }
 
+    public Serie findSeriesById(Long id) {
+        return serieRepository.findSerieById(id);
+    }
+
     // Update
     public Serie updateSerie(Serie newOne, Long id) {
         return serieRepository.findById(id)
