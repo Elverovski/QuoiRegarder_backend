@@ -16,4 +16,6 @@ public class Serie {
     private String genre;
     private int nbepisodes;
     private float note;
+
+    
 }

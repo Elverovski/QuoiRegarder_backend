@@ -10,7 +10,7 @@ import java.util.List;
 public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
     private String nom;
     private String prenom;
     private String email;
