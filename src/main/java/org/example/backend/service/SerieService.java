@@ -20,8 +20,12 @@ public class SerieService {
         return serieRepository.findAll();
     }
 
-    public List<Serie> findSeriesByName(String titre) {
+    public Serie findSeriesByName(String titre) {
         return serieRepository.findSerieByTitre(titre);
+    }
+
+    public Serie findSeriesById(Long id) {
+        return serieRepository.findSerieById(id);
     }
 
     // Update
@@ -46,5 +50,17 @@ public class SerieService {
         return serieRepository.save(newSerie);
     }
 
+
+    public List<Serie> searchSerie(String genre, int nbEpisodes){
+        return serieRepository.findSerieByGenreAndNbepisodes(genre, nbEpisodes);
+    }
+
+    public List<Serie> searchSerie(String genre) {
+        return serieRepository.findSerieByGenre(genre);
+    }
+
+    public List<Serie> searchSerie(int nbepisodes) {
+        return serieRepository.findSerieByNbepisodesGreaterThanEqual(nbepisodes);
+    }
 
 }

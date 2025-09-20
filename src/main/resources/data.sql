@@ -29,4 +29,36 @@ insert into Person (id, nom, prenom, email, genre) values (28, 'Tremblot', 'Jase
 insert into Person (id, nom, prenom, email, genre) values (29, 'Burgess', 'Drusie', 'dburgesss@cam.ac.uk', 'Female');
 insert into Person (id, nom, prenom, email, genre) values (30, 'McGourty', 'Nicolina', 'nmcgourtyt@google.co.uk', 'Female');
 
-insert into Serie (id, titre, genre, nbepisodes, note) values (1, 'Dexter', 'Crime/Thriller', 96, '8.6');
+
+
+INSERT INTO serie (id, titre, genre, nbepisodes, note) VALUES
+(1, 'Breaking Bad', 'Crime', 62, 9.5),
+(2, 'Better Call Saul', 'Crime', 62, 8.9),
+(3, 'Narcos', 'Crime', 30, 8.8),
+(4, 'Peaky Blinders', 'Crime', 36, 8.7),
+(5, 'Money Heist', 'Thriller', 41, 8.3),
+(6, 'Lupin', 'Thriller', 10, 7.6),
+(7, 'Stranger Things', 'Science-Fiction', 34, 8.7),
+(8, 'Dark', 'Science-Fiction', 34, 8.8),
+(9, 'The Mandalorian', 'Science-Fiction', 24, 8.6),
+(10, 'Black Mirror', 'Science-Fiction', 27, 8.8),
+(11, 'The Crown', 'Historique', 50, 8.6),
+(12, 'Vikings', 'Historique', 50, 8.6),
+(13, 'The Office', 'Comédie', 201, 9.0),
+(14, 'Friends', 'Comédie', 236, 8.9),
+(15, 'Brooklyn Nine-Nine', 'Comédie', 153, 8.4),
+(16, 'How I Met Your Mother', 'Comédie', 153, 8.3),
+(17, 'The Simpsons', 'Animation', 750, 8.5),
+(18, 'South Park', 'Animation', 750, 8.5),
+(19, 'Rick and Morty', 'Animation', 70, 9.0),
+(20, 'One Piece', 'Anime', 1100, 9.1),
+(21, 'Attack on Titan', 'Anime', 87, 9.0),
+(22, 'Death Note', 'Anime', 37, 9.0),
+(23, 'Fullmetal Alchemist: Brotherhood', 'Anime', 64, 9.2),
+(24, 'Demon Slayer', 'Anime', 64, 8.8),
+(25, 'Game of Thrones', 'Fantasy', 73, 9.2),
+(26, 'The Witcher', 'Fantasy', 24, 8.2),
+(27, 'House of the Dragon', 'Fantasy', 24, 8.6),
+(28, 'The Boys', 'Super-Héros', 24, 8.7),
+(29, 'The Walking Dead', 'Horreur', 177, 8.1),
+(30, 'Fear the Walking Dead', 'Horreur', 177, 7.9);

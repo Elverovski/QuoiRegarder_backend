@@ -1,21 +1,22 @@
 package org.example.backend.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
+
+import java.util.List;
 
 @Data
 @Entity
 public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public int id;
-    public String nom;
-    public String prenom;
-    public String email;
-    public String genre;
+    private int id;
+    private String nom;
+    private String prenom;
+    private String email;
+    private String genre;
 
+    @ManyToMany
+    private List<Serie> history;
 
 }
