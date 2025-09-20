@@ -44,6 +44,7 @@ public class PersonService {
         Serie seriToAdd = serieRepository.findSerieById(serieId);
 
         List<Serie> actualSeries = person.getHistory();
+        actualSeries.add(seriToAdd);
         person.setHistory(actualSeries);
         personRepository.save(person);
         return person;

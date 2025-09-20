@@ -4,6 +4,7 @@ import org.example.backend.models.Person;
 import org.example.backend.models.Serie;
 import org.example.backend.repository.PersonRepository;
 import org.example.backend.service.PersonService;
+import org.example.backend.service.RecommendationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,9 +16,11 @@ import java.util.List;
 public class PersonController {
 
     public final PersonService service;
+    public final RecommendationService serviceRecommandation;
 
-    public  PersonController(PersonService service) {
+    public  PersonController(PersonService service, RecommendationService serviceRecommandation) {
         this.service = service;
+        this.serviceRecommandation = serviceRecommandation;
     }
 
     // Get
@@ -47,6 +50,10 @@ public class PersonController {
         return service.markSerieAsView(id, seriesId);
     }
 
+    @GetMapping("/{id}/recommendations")
+    public List<Serie> getRecommendation(@PathVariable Long id){
+        return serviceRecommandation.getRecommendation(id);
+    }
 
     @PostMapping("/createPerson")
     public Person createPerson(@RequestBody Person newPerson) {
