@@ -1,10 +1,10 @@
 package org.example.backend;
 
 import org.example.backend.models.Serie;
-import org.example.backend.models.Person;
-import org.example.backend.repository.PersonRepository;
+import org.example.backend.models.User;
+import org.example.backend.repository.UserRepository;
 import org.example.backend.repository.SerieRepository;
-import org.example.backend.service.PersonService;
+import org.example.backend.service.UserService;
 import org.example.backend.service.SerieService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,13 +25,13 @@ public class SerieServiceTest {
     private SerieRepository serieRepository;
 
     @Mock
-    private PersonRepository personRepository;
+    private UserRepository userRepository;
 
     @InjectMocks
     private SerieService seriesService;
 
     @InjectMocks
-    private PersonService personService;
+    private UserService userService;
 
     private Serie serie1;
     private Serie serie2;
@@ -75,20 +75,20 @@ public class SerieServiceTest {
     // Add to history
     @Test
     void testaddToHistory(){
-        Person person = new Person();
-        person.setId(5L);
+        User user = new User();
+        user.setId(5L);
         List<Serie> history = new ArrayList<>();
-        person.setHistory(history);
+        user.setHistory(history);
 
         Serie serie = new Serie();
         serie.setId(2L);
         serie.setTitre("Testing");
 
-        when(personRepository.findPersonById(5L)).thenReturn(person);
+        when(userRepository.findUserById(5L)).thenReturn(user);
         when(serieRepository.findSerieById(2L)).thenReturn(serie);
-        when(personRepository.save(person)).thenReturn(person);
+        when(userRepository.save(user)).thenReturn(user);
 
-        Person newOne = personService.markSerieAsView(5L, 2L);
+        User newOne = userService.markSerieAsView(5L, 2L);
 
         assertEquals(1, newOne.getHistory().size());
         assertEquals("Testing", newOne.getHistory().get(0).getTitre());

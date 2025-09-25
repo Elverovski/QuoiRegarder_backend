@@ -1,11 +1,10 @@
 package org.example.backend.service;
 
-import org.example.backend.models.Person;
+import org.example.backend.models.User;
 import org.example.backend.models.Serie;
-import org.example.backend.repository.PersonRepository;
+import org.example.backend.repository.UserRepository;
 import org.example.backend.repository.SerieRepository;
 import org.springframework.stereotype.Service;
-import org.w3c.dom.ls.LSInput;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,18 +12,18 @@ import java.util.List;
 @Service
 public class RecommendationService {
 
-    private final PersonRepository personRepository;
+    private final UserRepository userRepository;
     private final SerieRepository serieRepository;
 
-    public RecommendationService(PersonRepository personRepository, SerieRepository serieRepository) {
-        this.personRepository = personRepository;
+    public RecommendationService(UserRepository userRepository, SerieRepository serieRepository) {
+        this.userRepository = userRepository;
         this.serieRepository = serieRepository;
     }
 
-    public List<Serie> getRecommendation(Long idPerson) {
-        Person person = personRepository.findPersonById(idPerson);
+    public List<Serie> getRecommendation(Long idUser) {
+        User user = userRepository.findUserById(idUser);
 
-        List<Serie> history = person.getHistory();
+        List<Serie> history = user.getHistory();
         if (history == null) {
             history = new ArrayList<Serie>();
         }
