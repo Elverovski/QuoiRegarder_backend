@@ -23,6 +23,8 @@ public class RatingsService {
         this.serieRepository = serieRepository;
     }
 
+    // créer le login pour pouvoir avoir un test plus simple et précis
+
     public boolean rateEpisode(Long id, int scoreRate){
         // 1- trouver le user avec la session
         // 2- trouver l'episode
