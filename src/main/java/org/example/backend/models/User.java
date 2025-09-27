@@ -16,6 +16,7 @@ public class User {
     private String prenom;
     private String email;
     private String genre;
+    private String password;
 
     @ManyToMany
     private List<Serie> history;

@@ -1,3 +1,5 @@
+
+-- User data
 insert into users (id, nom, prenom, email, genre) values (1, 'Stainer', 'Peirce', 'pstainer0@earthlink.net', 'Male');
 insert into users (id, nom, prenom, email, genre) values (2, 'Lazer', 'Fifine', 'flazer1@google.co.jp', 'Female');
 insert into users (id, nom, prenom, email, genre) values (3, 'Hanley', 'Aguie', 'ahanley2@yandex.ru', 'Male');
@@ -29,7 +31,8 @@ insert into users (id, nom, prenom, email, genre) values (28, 'Tremblot', 'Jasen
 insert into users (id, nom, prenom, email, genre) values (29, 'Burgess', 'Drusie', 'dburgesss@cam.ac.uk', 'Female');
 insert into users (id, nom, prenom, email, genre) values (30, 'McGourty', 'Nicolina', 'nmcgourtyt@google.co.uk', 'Female');
 
-
+--------------------------------------------------------------------------------------------
+-- Serie Data
 
 INSERT INTO serie (id, titre, genre, nbepisodes, note) VALUES
 (1, 'Breaking Bad', 'Crime', 62, 9.5),
@@ -62,3 +65,118 @@ INSERT INTO serie (id, titre, genre, nbepisodes, note) VALUES
 (28, 'The Boys', 'Super-Héros', 24, 8.7),
 (29, 'The Walking Dead', 'Horreur', 177, 8.1),
 (30, 'Fear the Walking Dead', 'Horreur', 177, 7.9);
+
+---------------------------------------------------------------------------------------------------------
+-- Episode Data
+INSERT INTO episode (title, episode_number, season_number, serie_id) VALUES
+-- Breaking Bad
+('Pilot', 1, 1, 1),
+('Crazy Chemistry', 2, 1, 1),
+('The Heist', 3, 1, 1),
+
+-- Better Call Saul
+('Slippin Jimmy', 1, 1, 2),
+('Lawyer Up', 2, 1, 2),
+
+-- Narcos
+('First Deal', 1, 1, 3),
+
+-- Peaky Blinders
+('The Razor', 1, 1, 4),
+('Gangs of Birmingham', 2, 1, 4),
+
+-- Money Heist
+('The Plan', 1, 1, 5),
+('Masks On', 2, 1, 5),
+('Breaking In', 3, 1, 5),
+
+-- Lupin
+('Gentleman Thief', 1, 1, 6),
+
+-- Stranger Things
+('Upside Down', 1, 1, 7),
+('The Vanishing', 2, 1, 7),
+
+-- Dark
+('time Loop', 1, 1, 8),
+
+-- The Mandalorian
+('The Child', 1, 1, 9),
+('Bounty Hunt', 2, 1, 9),
+
+-- Black Mirror
+('Nosedive', 1, 1, 10),
+
+-- The Crown
+('Kings Speech', 1, 1, 11),
+('Royal Duty', 2, 1, 11),
+
+-- Vikings
+('Ragnar Returns', 1, 1, 12),
+
+-- The Office
+('Pilot', 1, 1, 13),
+('The Dundies', 2, 1, 13),
+
+-- Friends
+('The One with the Meeting', 1, 1, 14),
+
+-- Brooklyn Nine-Nine
+('Hot Case', 1, 1, 15),
+('Jake vs Amy', 2, 1, 15),
+
+-- How I Met Your Mother
+('First Date', 1, 1, 16),
+
+-- The Simpsons
+('Barts Prank', 1, 1, 17),
+('Homers Dilemma', 2, 1, 17),
+
+-- South Park
+('Cartman Rules', 1, 1, 18),
+
+-- Rick and Morty
+('Portal Madness', 1, 1, 19),
+('Pickle Rick', 2, 1, 19),
+('Interdimensional', 3, 1, 19),
+
+-- One Piece
+('The Beginning', 1, 1, 20),
+('Treasure Hunt', 2, 1, 20),
+('Grand Adventure', 3, 1, 20),
+
+-- Attack on Titan
+('Wall Breach', 1, 1, 21),
+
+-- Death Note
+('The Notebook', 1, 1, 22),
+('Mind Games', 2, 1, 22),
+
+-- Fullmetal Alchemist: Brotherhood
+('Alchemy 101', 1, 1, 23),
+('Brotherhood', 2, 1, 23),
+
+-- Demon Slayer
+('Blade Dance', 1, 1, 24),
+
+-- Game of Thrones
+('Winter is Coming', 1, 1, 25),
+('Kings and Queens', 2, 1, 25),
+
+-- The Witcher
+('Monster Hunt', 1, 1, 26),
+
+-- House of the Dragon
+('Dragon Blood', 1, 1, 27),
+('Court Intrigue', 2, 1, 27),
+
+-- The Boys
+('Super Secrets', 1, 1, 28),
+
+-- The Walking Dead
+('Outbreak', 1, 1, 29),
+('Survivors', 2, 1, 29),
+
+-- Fear the Walking Dead
+('The End Begins', 1, 1, 30);
+
