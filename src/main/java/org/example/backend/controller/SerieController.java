@@ -1,7 +1,10 @@
 package org.example.backend.controller;
 
+import org.apache.coyote.Response;
 import org.example.backend.models.Serie;
+import org.example.backend.service.LoginService;
 import org.example.backend.service.SerieService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,16 +15,27 @@ import java.util.List;
 public class SerieController {
 
     public final SerieService service;
+    private final LoginService loginService;
 
 
-    public SerieController(SerieService service) {
+    public SerieController(SerieService service, LoginService loginService) {
         this.service = service;
+        this.loginService = loginService;
     }
 
     // Get
     @GetMapping("/getAllSeries")
-    public List<Serie> getAllSeries(){
-        return service.findAllSeries();
+    public ResponseEntity<?> getAllSeries(@RequestHeader("Authorization") String authHeader){
+        // validation du token sans se reconnecter
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            return ResponseEntity.status(401).body("Token manquant");
+        }
+        String token = authHeader.substring(7);
+        if (!loginService.isTokenValid(token)){
+            return ResponseEntity.status(401).body("Token invalide ou expiré");
+        }
+
+        return ResponseEntity.ok(service.findAllSeries());
     }
 
     @GetMapping("/getSerieTitre")

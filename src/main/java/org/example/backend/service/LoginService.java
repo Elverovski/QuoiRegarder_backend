@@ -45,7 +45,7 @@ public class LoginService {
                 .setSubject(user.getEmail())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60)) // expire dans 1h
-                .signWith(getSignInKey(), SignatureAlgorithm.HS256)
+                .signWith(Keys.hmacShaKeyFor(SECRET_KEY.getBytes()), SignatureAlgorithm.HS256)
                 .compact();
     }
 
@@ -54,7 +54,7 @@ public class LoginService {
         try {
 
             Jwts.parser()
-                    .setSigningKey(getSignInKey())
+                    .setSigningKey(SECRET_KEY.getBytes())
                     .build()
                     .parseClaimsJws(token);
             return true;
@@ -63,11 +63,18 @@ public class LoginService {
         }
     }
 
-
-    private Key getSignInKey() {
-        byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);
-        return Keys.hmacShaKeyFor(keyBytes);
+    public String extractEmail(String token) {
+        return Jwts.parser()
+                .setSigningKey(Keys.hmacShaKeyFor(SECRET_KEY.getBytes()))
+                .build()
+                .parseClaimsJws(token)
+                .getBody()
+                .getSubject();
     }
 
 
+    private Key getSignInKey() {
+        //byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);
+        return Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
+    }
 }
