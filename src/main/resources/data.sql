@@ -1,6 +1,6 @@
 
 -- User data
-insert into users (id, nom, prenom, email, genre, password) values (2, 'Lazer', 'Fifine', 'lazer@example.com', 'Female', 'Lazer');
+insert into users (id, nom, prenom, email, genre, password) values (2, 'Lazer', 'Fifine', 'lazer@example.com', 'Female', '$2a$10$SklvSd5ZOYzh4Ol7q.IAaejxJEkuEgjyTb60NPzSGsx9iYjWFSyd.');
 insert into users (id, nom, prenom, email, genre, password) values (3, 'Hanley', 'Aguie', 'hanley@example.com', 'Male', 'Hanley');
 insert into users (id, nom, prenom, email, genre, password) values (4, 'Tenney', 'Elle', 'tenney@example.com', 'Female', 'Tenney');
 insert into users (id, nom, prenom, email, genre, password) values (5, 'McKeachie', 'Arty', 'mckeachie@example.com', 'Male', 'McKeachie');

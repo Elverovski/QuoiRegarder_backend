@@ -1,13 +1,17 @@
 package org.example.backend.controller;
 
+import lombok.extern.slf4j.Slf4j;
+import org.example.backend.models.LoginResponse;
 import org.example.backend.models.User;
 import org.example.backend.models.Serie;
+import org.example.backend.service.LoginService;
 import org.example.backend.service.UserService;
 import org.example.backend.service.RecommendationService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequestMapping("/users")
 @CrossOrigin
@@ -15,10 +19,12 @@ public class UserController {
 
     public final UserService service;
     public final RecommendationService serviceRecommandation;
+    public final LoginService loginService;
 
-    public UserController(UserService service, RecommendationService serviceRecommandation) {
+    public UserController(UserService service, RecommendationService serviceRecommandation, LoginService loginService) {
         this.service = service;
         this.serviceRecommandation = serviceRecommandation;
+        this.loginService = loginService;
     }
 
     // Get
@@ -71,5 +77,11 @@ public class UserController {
         service.deleteUser(id);
     }
 
+    @PostMapping("/login")
+    public LoginResponse signin(@RequestBody User user) {
+        LoginResponse loginResponse = new LoginResponse();
+        loginResponse.setToken(loginService.login(user.getEmail(), user.getPassword()));
+        return  loginResponse;
+    }
 
 }
