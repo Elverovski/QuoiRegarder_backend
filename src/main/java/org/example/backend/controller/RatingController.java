@@ -35,6 +35,17 @@ public class RatingController {
         return ratingsRepository.findAll();
     }
 
+    @GetMapping("/serie/{id}")
+    public ResponseEntity<?> getSerieAverage(@PathVariable Long id) {
+        return ResponseEntity.ok(ratingsService.getAverageSerieRating(id));
+    }
+
+
+    @GetMapping("/episode/{id}")
+    public ResponseEntity<?> getEpisodeAverage(@PathVariable Long id) {
+        return ResponseEntity.ok(ratingsService.getAverageEpisodeRating(id));
+    }
+
     // POST
     @PostMapping("/episode/{idEpisode}")
     public ResponseEntity<?> rateEpisode(@RequestHeader("Authorization") String authHeader, @PathVariable Long idEpisode, @RequestBody int score){
@@ -64,5 +75,7 @@ public class RatingController {
                     .body(Map.of("error", error));
         }
     }
+
+
 
 }

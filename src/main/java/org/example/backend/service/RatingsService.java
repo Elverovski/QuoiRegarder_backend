@@ -73,4 +73,12 @@ public class RatingsService {
         return "Serie rate avec succès";
     }
 
+    public Double getAverageSerieRating(Long serieId) {
+        return ratingsRepository.getAverageSerieRating(serieId);
+    }
+
+    public Double getAverageEpisodeRating(Long episodeId) {
+        return ratingsRepository.getAverageEpisodeRating(episodeId);
+    }
+
 }
