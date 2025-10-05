@@ -1,7 +1,11 @@
 package org.example.backend.controller;
 
+import org.apache.coyote.Response;
 import org.example.backend.models.Serie;
+import org.example.backend.service.JwtService;
+import org.example.backend.service.LoginService;
 import org.example.backend.service.SerieService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,32 +16,56 @@ import java.util.List;
 public class SerieController {
 
     public final SerieService service;
+    private final LoginService loginService;
+    private final JwtService jwtService;
 
 
-    public SerieController(SerieService service) {
+    public SerieController(SerieService service, LoginService loginService, JwtService jwtService) {
         this.service = service;
+        this.loginService = loginService;
+        this.jwtService = jwtService;
     }
 
     // Get
-    @GetMapping("/getAllSeries")
-    public List<Serie> getAllSeries(){
-        return service.findAllSeries();
+        @GetMapping("/getAllSeries")
+    public ResponseEntity<?> getAllSeries(@RequestHeader("Authorization") String authHeader){
+        // validation du token sans se reconnecter
+        //if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            //return ResponseEntity.status(401).body("Token manquant");
+        //}
+        //String token = authHeader.substring(7);
+        //if (!loginService.isTokenValid(token)){
+        //    return ResponseEntity.status(401).body("Token invalide ou expiré");
+        //}
+
+        jwtService.validateToken(authHeader);
+        return ResponseEntity.ok(service.findAllSeries());
+    }
+
+    @GetMapping("/getALlTendances")
+    public List<Serie> getAllTendances(@RequestHeader("Authorization") String authHeader){
+        jwtService.validateToken(authHeader);
+        return ResponseEntity.ok(service.getAllTendances()).getBody();
     }
 
     @GetMapping("/getSerieTitre")
-    public Serie getSerieByTitre(@RequestParam String name){
+    public Serie getSerieByTitre(@RequestParam String name, @RequestHeader("Authorization") String authHeader){
+        jwtService.validateToken(authHeader);
         return service.findSeriesByName(name);
     }
 
     @GetMapping("/getSerieById")
-    public Serie getSerieById(@RequestParam Long id){
+    public Serie getSerieById(@RequestParam Long id, @RequestHeader("Authorization") String authHeader){
+        jwtService.validateToken(authHeader);
         return service.findSeriesById(id);
     }
 
     @GetMapping("/searchSerie")
     public List<Serie> searchSerie(
             @RequestParam(required = false) String genre,
-            @RequestParam(required = false, defaultValue = "0") int nbEpisodes) {
+            @RequestParam(required = false, defaultValue = "0") int nbEpisodes,
+            @RequestHeader("Authorization") String authHeader) {
+        jwtService.validateToken(authHeader);
 
         if ((genre == null || genre.isEmpty()) && nbEpisodes > 0) {
             return service.searchSerie(nbEpisodes);
