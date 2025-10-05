@@ -11,4 +11,5 @@ public interface SerieRepository extends JpaRepository<Serie, Long> {
     public List<Serie> findSerieByGenre(String genre);
     public List<Serie> findSerieByGenreAndNbepisodes(String genre, int NbEpisodes);
     public List<Serie> findSerieByNbepisodesGreaterThanEqual(int NbEpisodes);
+    public List<Serie> findAllByOrderByNoteDesc();
 }

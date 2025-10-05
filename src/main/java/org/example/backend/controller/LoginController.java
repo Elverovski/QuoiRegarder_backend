@@ -22,8 +22,9 @@ public class LoginController {
     public ResponseEntity<?> login(@RequestBody User user) {
         try {
             String token = loginService.login(user.getEmail(), user.getPassword());
-
+            //String email = loginService.extractEmail(token);
             return ResponseEntity.ok(Map.of("token", token));
+
         } catch (RuntimeException e) {
             // En cas d'échec (email/mot de passe incorrect)
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)

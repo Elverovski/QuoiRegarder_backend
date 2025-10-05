@@ -63,4 +63,8 @@ public class SerieService {
         return serieRepository.findSerieByNbepisodesGreaterThanEqual(nbepisodes);
     }
 
+    public List<Serie> getAllTendances(){
+        return serieRepository.findAllByOrderByNoteDesc();
+    }
+
 }

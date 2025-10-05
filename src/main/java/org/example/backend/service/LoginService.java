@@ -52,7 +52,6 @@ public class LoginService {
 
     public boolean isTokenValid(String token) {
         try {
-
             Jwts.parser()
                     .setSigningKey(SECRET_KEY.getBytes())
                     .build()
@@ -72,9 +71,11 @@ public class LoginService {
                 .getSubject();
     }
 
-
+    // Methode qui va decodifiquer avec BASE64 et va creer une autre token avec hmacShaKey
     private Key getSignInKey() {
         //byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);
         return Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
     }
+
+
 }

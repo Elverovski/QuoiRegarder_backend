@@ -19,24 +19,28 @@ public class UserService {
         this.userRepository = userRepository;
         this.serieRepository = serieRepository;
     }
-
+    // GET: obtenir tous les utilisateurs
     public List<User> findAllUsers() {
         return userRepository.findAll();
     }
 
+
+    // GET: obtenir un utilisateur par son Nom
     public User findUsersByName(String name) {
         return userRepository.findUserByNom(name);
     }
 
+    // GET: obtenir un utilisataeur par son ID
     public User findUserById(Long id){
         return userRepository.findUserById(id);
     }
 
+    // GET: obtenir le historique d'un utilistaeur par son ID
     public List<Serie> findHistoryById(Long id){
         User user = userRepository.findUserById(id);
         return user.getHistory();
     }
-
+    // PUT:
     public User markSerieAsView(Long idUser, Long serieId) {
 
         User user = userRepository.findUserById(idUser);
@@ -49,10 +53,7 @@ public class UserService {
         return user;
     }
 
-
-
-
-    // Update
+    // PUT: update les donnes d'un utilistaeur
     public User updateUser(User newOne, Long id) {
         return userRepository.findById(id)
                 .map(user -> {
@@ -64,12 +65,12 @@ public class UserService {
                 }).orElseThrow(() -> new ModelNotFoundException(id, "User"));
     }
 
-    // Delete
+    // DELETE: effacer un utilisateur
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
     }
 
-    // Create
+    // POST: creer un nouveau utilisateur
     public User createUser(User newUser) {
         return userRepository.save(newUser);
     }

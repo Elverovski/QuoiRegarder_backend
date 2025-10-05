@@ -27,4 +27,5 @@ public class Ratings {
     private Episode episode;
 
     private LocalDateTime createdAt = LocalDateTime.now();
+
 }

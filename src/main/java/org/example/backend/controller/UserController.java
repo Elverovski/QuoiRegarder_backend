@@ -3,8 +3,10 @@ package org.example.backend.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.example.backend.models.User;
 import org.example.backend.models.Serie;
+import org.example.backend.service.JwtService;
 import org.example.backend.service.UserService;
 import org.example.backend.service.RecommendationService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,16 +19,20 @@ public class UserController {
 
     public final UserService service;
     public final RecommendationService serviceRecommandation;
+    private final JwtService jwtService;
 
-    public UserController(UserService service, RecommendationService serviceRecommandation) {
+
+    public UserController(UserService service, RecommendationService serviceRecommandation, JwtService jwtService) {
         this.service = service;
         this.serviceRecommandation = serviceRecommandation;
+        this.jwtService = jwtService;
     }
 
     // Get
     @GetMapping("/getAllUsers")
-    public List<User> getAllUsers() {
-        return service.findAllUsers();
+    public ResponseEntity<?> getAllUsers(@RequestHeader("Authorization") String authHeader) {
+        jwtService.validateToken(authHeader);;
+        return ResponseEntity.ok(service.findAllUsers());
     }
 
     @GetMapping("/search")
