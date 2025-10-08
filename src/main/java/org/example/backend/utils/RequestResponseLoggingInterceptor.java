@@ -18,10 +18,8 @@ public class RequestResponseLoggingInterceptor implements HandlerInterceptor {
         logger.info("Incoming Request: Method={}, URI={}, IP={}, Header={}",
                 request.getMethod(),
                 request.getRequestURI(),
-                request.getRemoteAddr(),
-                request.getHeader(""));
-        // You can also log headers, query parameters, or even the request body here (with caution for performance/memory)
-        return true; // Continues the request processing
+                request.getRemoteAddr());
+        return true;
     }
 
     @Override
