@@ -101,6 +101,18 @@ public class RatingsService {
         return "Episode update rate avec succès";
     }
 
+    public Ratings getRatingByEpisodeId(Long id) {
+        Episode episode = episodeRepository.findEpisodeById(id);
+
+        if (episode == null) {
+            throw new RuntimeException("Episode introuvable");
+        }
+
+        Ratings ratings = ratingsRepository.findRatingsByEpisode(episode);
+
+        return ratings;
+    }
+
     public Double getAverageSerieRating(Long serieId) {
         return ratingsRepository.getAverageSerieRating(serieId);
     }
@@ -108,5 +120,6 @@ public class RatingsService {
     public Double getAverageEpisodeRating(Long episodeId) {
         return ratingsRepository.getAverageEpisodeRating(episodeId);
     }
+
 
 }

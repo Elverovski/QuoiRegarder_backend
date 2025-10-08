@@ -30,30 +30,36 @@ public class RatingController {
         this.ratingsRepository = ratingsRepository;
     }
 
+    /////////////////////////////////// GET //////////////////////////////////////////////////////////
     @GetMapping("/getAllRates")
     public List<Ratings> getAllRates(){
         return ratingsRepository.findAll();
     }
 
-    @GetMapping("/serie/{id}")
-    public ResponseEntity<?> getSerieAverage(@PathVariable Long id) {
-        return ResponseEntity.ok(ratingsService.getAverageSerieRating(id));
+    @GetMapping("/episode/{id}")
+    public ResponseEntity<?> getEpisodeById(@PathVariable Long id) {
+        return ResponseEntity.ok(ratingsService.getRatingByEpisodeId(id));
     }
 
-
-    @GetMapping("/episode/{id}")
+    ///////////////////////////////// GET RATE /////////////////////////////////////////////////////
+    @GetMapping("/episode/rate/{id}")
     public ResponseEntity<?> getEpisodeAverage(@PathVariable Long id) {
         return ResponseEntity.ok(ratingsService.getAverageEpisodeRating(id));
     }
 
-    // POST
-    @PostMapping("/episode/{idEpisode}")
-    public ResponseEntity<?> rateEpisode(@RequestHeader("Authorization") String authHeader, @PathVariable Long idEpisode, @RequestBody int score){
+    @GetMapping("/serie/rate/{id}")
+    public ResponseEntity<?> getSerieAverage(@PathVariable Long id) {
+        return ResponseEntity.ok(ratingsService.getAverageSerieRating(id));
+    }
+
+    /////////////////////////////////////////// POST ////////////////////////////////////////////////
+    @PostMapping("/episode/{id}")
+    public ResponseEntity<?> rateEpisode(@RequestHeader("Authorization") String authHeader, @PathVariable Long id, @RequestBody int score){
         try {
             String responseToken = jwtService.validateAndReturnToken(authHeader);
             String email = loginService.extractEmail(responseToken);
 
-            return ResponseEntity.ok(ratingsService.rateEpisode(idEpisode, email, score));
+            return ResponseEntity.ok(ratingsService.rateEpisode(id, email, score));
 
         } catch (RuntimeException error) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
@@ -77,13 +83,13 @@ public class RatingController {
     }
 
     //Update
-    @PutMapping("/episode/{idEpisode}")
-    public ResponseEntity<?> updateRateEpisode(@RequestHeader("Authorization") String authHeader, @PathVariable Long idEpisode, @RequestBody int score){
+    @PutMapping("/episode/{id}")
+    public ResponseEntity<?> updateRateEpisode(@RequestHeader("Authorization") String authHeader, @PathVariable Long id, @RequestBody int score){
         try {
             String responseToken = jwtService.validateAndReturnToken(authHeader);
             String email = loginService.extractEmail(responseToken);
 
-            return ResponseEntity.ok(ratingsService.updateRateEpisode(idEpisode, email, score));
+            return ResponseEntity.ok(ratingsService.updateRateEpisode(id, email, score));
 
         } catch (RuntimeException error) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
