@@ -57,7 +57,7 @@ public class RatingController {
 
         } catch (RuntimeException error) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                    .body(Map.of("error", error));
+                    .body(Map.of("error", error.getMessage()));
         }
     }
 
@@ -72,7 +72,22 @@ public class RatingController {
             return ResponseEntity.ok(ratingsService.rateSerie(id, email,  scoreRate));
         } catch (RuntimeException error ) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                    .body(Map.of("error", error));
+                    .body(Map.of("error", error.getMessage()));
+        }
+    }
+
+    //Update
+    @PutMapping("/episode/{idEpisode}")
+    public ResponseEntity<?> updateRateEpisode(@RequestHeader("Authorization") String authHeader, @PathVariable Long idEpisode, @RequestBody int score){
+        try {
+            String responseToken = jwtService.validateAndReturnToken(authHeader);
+            String email = loginService.extractEmail(responseToken);
+
+            return ResponseEntity.ok(ratingsService.updateRateEpisode(idEpisode, email, score));
+
+        } catch (RuntimeException error) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(Map.of("error", error.getMessage()));
         }
     }
 

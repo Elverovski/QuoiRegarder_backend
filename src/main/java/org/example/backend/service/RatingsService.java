@@ -29,19 +29,23 @@ public class RatingsService {
         this.episodeRepository = episodeRepository;
     }
 
-    // créer le login pour pouvoir avoir un test plus simple et précis
-
-    public String rateEpisode(Long idEpisde, String email, int scoreRate){
+    // rate une episode
+    public String rateEpisode(Long idEpisde, String email, int scoreRate) {
         Episode episode = episodeRepository.findEpisodeById(idEpisde);
 
         if (episode == null) {
-            throw new RuntimeException("Episod introuvable");
+            throw new RuntimeException("Episode introuvable");
         }
 
         User user = userRepository.findUserByEmail(email);
 
         if (user == null) {
             throw new RuntimeException("Utilisateur introuvable");
+        }
+
+        Ratings isEpisodeAlreadyRate = ratingsRepository.findRatingsByUserIdAndEpisode(user, episode);
+        if (isEpisodeAlreadyRate != null) {
+            throw new RuntimeException("Vous avez déja ajouté un rate à cette épisode");
         }
 
         Ratings rateEpisode = new Ratings();
@@ -53,11 +57,13 @@ public class RatingsService {
         return "Episode rate avec succès";
     }
 
-    public String rateSerie(Long idSerie, String email, int scoreRate){
+    // rate une serie
+    public String rateSerie(Long idSerie, String email, int scoreRate) {
         Serie serie = serieRepository.findSerieById(idSerie);
-        if (serie == null){
-            throw new RuntimeException("Serie introuvable pe");
-        };
+        if (serie == null) {
+            throw new RuntimeException("Serie introuvable");
+        }
+        ;
 
         User user = userRepository.findUserByEmail(email);
 
@@ -71,6 +77,28 @@ public class RatingsService {
 
         ratingsRepository.save(rateSerie);
         return "Serie rate avec succès";
+    }
+
+
+    // update le rate d'une episode
+    public String updateRateEpisode(Long idEpisode, String email, int scoreRate) {
+        Episode episode = episodeRepository.findEpisodeById(idEpisode);
+
+        if (episode == null) {
+            throw new RuntimeException("Episode introuvable");
+        }
+
+        User user = userRepository.findUserByEmail(email);
+
+        if (user == null) {
+            throw new RuntimeException("Utilisateur introuvable");
+        }
+
+        Ratings rateEpisode = ratingsRepository.findRatingsByUserIdAndEpisode(user, episode);
+        rateEpisode.setScore(scoreRate);
+
+        ratingsRepository.save(rateEpisode);
+        return "Episode update rate avec succès";
     }
 
     public Double getAverageSerieRating(Long serieId) {
