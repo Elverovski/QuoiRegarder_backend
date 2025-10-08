@@ -23,6 +23,7 @@ public class RatingController {
     private final RatingsRepository ratingsRepository;
     private final LoginService loginService;
 
+    // Injection par constructeur
     public RatingController(RatingsService ratingsService, JwtService jwtService, LoginService loginService, RatingsRepository ratingsRepository){
         this.ratingsService = ratingsService;
         this.jwtService = jwtService;
@@ -30,23 +31,25 @@ public class RatingController {
         this.ratingsRepository = ratingsRepository;
     }
 
+    // GET: permet d'obtenir tous les ratings des utilisateurs
     @GetMapping("/getAllRates")
     public List<Ratings> getAllRates(){
         return ratingsRepository.findAll();
     }
 
+    // GET: permet d'obtenir la moyenne de ratings d'une serie
     @GetMapping("/serie/{id}")
     public ResponseEntity<?> getSerieAverage(@PathVariable Long id) {
         return ResponseEntity.ok(ratingsService.getAverageSerieRating(id));
     }
 
-
+    // GET: permet d'avoir la moyenne de ratings d'une episode
     @GetMapping("/episode/{id}")
     public ResponseEntity<?> getEpisodeAverage(@PathVariable Long id) {
         return ResponseEntity.ok(ratingsService.getAverageEpisodeRating(id));
     }
 
-    // POST
+    // POST: permet de rating une episode
     @PostMapping("/episode/{idEpisode}")
     public ResponseEntity<?> rateEpisode(@RequestHeader("Authorization") String authHeader, @PathVariable Long idEpisode, @RequestBody int score){
         try {
@@ -61,7 +64,7 @@ public class RatingController {
         }
     }
 
-    // POST
+    // POST: permet de rating une serie
     @PostMapping("/serie/{id}")
     public ResponseEntity<?> rateSerie(@RequestHeader("Authorization") String authHeader, @PathVariable Long id, @RequestBody int scoreRate){
         try {
