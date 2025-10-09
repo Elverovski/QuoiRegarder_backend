@@ -1,7 +1,7 @@
 
 -- User data
 insert into users (id, nom, prenom, email, genre, password) values (2, 'Lazer', 'Fifine', 'lazer@example.com', 'Female', '$2a$10$SklvSd5ZOYzh4Ol7q.IAaejxJEkuEgjyTb60NPzSGsx9iYjWFSyd.');
-insert into users (id, nom, prenom, email, genre, password) values (3, 'Hanley', 'Aguie', 'hanley@example.com', 'Male', 'Hanley');
+insert into users (id, nom, prenom, email, genre, password) values (3, 'Hanley', 'Aguie', 'hanley@example.com', 'Male', '$2a$10$nsXE1UqngQX/fPUyXU4QbO55449fDzBsZqYRa/TtTcu/PuE3USupG');
 insert into users (id, nom, prenom, email, genre, password) values (4, 'Tenney', 'Elle', 'tenney@example.com', 'Female', 'Tenney');
 insert into users (id, nom, prenom, email, genre, password) values (5, 'McKeachie', 'Arty', 'mckeachie@example.com', 'Male', 'McKeachie');
 insert into users (id, nom, prenom, email, genre, password) values (6, 'Spurr', 'Marc', 'spurr@example.com', 'Male', 'Spurr');
@@ -34,36 +34,36 @@ insert into users (id, nom, prenom, email, genre, password) values (30, 'McGourt
 -- Serie Data
 
 INSERT INTO serie (id, titre, genre, nbepisodes, note) VALUES
-(1, 'Breaking Bad', 'Crime', 62, 9.5),
-(2, 'Better Call Saul', 'Crime', 62, 8.9),
-(3, 'Narcos', 'Crime', 30, 8.8),
-(4, 'Peaky Blinders', 'Crime', 36, 8.7),
-(5, 'Money Heist', 'Thriller', 41, 8.3),
-(6, 'Lupin', 'Thriller', 10, 7.6),
-(7, 'Stranger Things', 'Science-Fiction', 34, 8.7),
-(8, 'Dark', 'Science-Fiction', 34, 8.8),
-(9, 'The Mandalorian', 'Science-Fiction', 24, 8.6),
-(10, 'Black Mirror', 'Science-Fiction', 27, 8.8),
-(11, 'The Crown', 'Historique', 50, 8.6),
-(12, 'Vikings', 'Historique', 50, 8.6),
-(13, 'The Office', 'Comédie', 201, 9.0),
-(14, 'Friends', 'Comédie', 236, 8.9),
-(15, 'Brooklyn Nine-Nine', 'Comédie', 153, 8.4),
-(16, 'How I Met Your Mother', 'Comédie', 153, 8.3),
-(17, 'The Simpsons', 'Animation', 750, 8.5),
-(18, 'South Park', 'Animation', 750, 8.5),
-(19, 'Rick and Morty', 'Animation', 70, 9.0),
-(20, 'One Piece', 'Anime', 1100, 9.1),
-(21, 'Attack on Titan', 'Anime', 87, 9.0),
-(22, 'Death Note', 'Anime', 37, 9.0),
-(23, 'Fullmetal Alchemist: Brotherhood', 'Anime', 64, 9.2),
-(24, 'Demon Slayer', 'Anime', 64, 8.8),
-(25, 'Game of Thrones', 'Fantasy', 73, 9.2),
-(26, 'The Witcher', 'Fantasy', 24, 8.2),
-(27, 'House of the Dragon', 'Fantasy', 24, 8.6),
-(28, 'The Boys', 'Super-Héros', 24, 8.7),
-(29, 'The Walking Dead', 'Horreur', 177, 8.1),
-(30, 'Fear the Walking Dead', 'Horreur', 177, 7.9);
+(1, 'Breaking Bad', 'Crime', 62, 0),
+(2, 'Better Call Saul', 'Crime', 62, 0),
+(3, 'Narcos', 'Crime', 30, 0),
+(4, 'Peaky Blinders', 'Crime', 36, 0),
+(5, 'Money Heist', 'Thriller', 41, 0),
+(6, 'Lupin', 'Thriller', 10, 0),
+(7, 'Stranger Things', 'Science-Fiction', 34, 0),
+(8, 'Dark', 'Science-Fiction', 34, 0),
+(9, 'The Mandalorian', 'Science-Fiction', 24, 0),
+(10, 'Black Mirror', 'Science-Fiction', 27, 0),
+(11, 'The Crown', 'Historique', 50, 0),
+(12, 'Vikings', 'Historique', 50, 0),
+(13, 'The Office', 'Comédie', 201, 0),
+(14, 'Friends', 'Comédie', 236, 0),
+(15, 'Brooklyn Nine-Nine', 'Comédie', 153, 0),
+(16, 'How I Met Your Mother', 'Comédie', 153, 0),
+(17, 'The Simpsons', 'Animation', 750, 0),
+(18, 'South Park', 'Animation', 750, 0),
+(19, 'Rick and Morty', 'Animation', 70, 0),
+(20, 'One Piece', 'Anime', 1100, 0),
+(21, 'Attack on Titan', 'Anime', 87, 0),
+(22, 'Death Note', 'Anime', 37, 0),
+(23, 'Fullmetal Alchemist: Brotherhood', 'Anime', 64, 0),
+(24, 'Demon Slayer', 'Anime', 64, 0),
+(25, 'Game of Thrones', 'Fantasy', 73, 0),
+(26, 'The Witcher', 'Fantasy', 24, 0),
+(27, 'House of the Dragon', 'Fantasy', 24, 0),
+(28, 'The Boys', 'Super-Héros', 24, 0),
+(29, 'The Walking Dead', 'Horreur', 177, 0),
+(30, 'Fear the Walking Dead', 'Horreur', 177, 0);
 
 ---------------------------------------------------------------------------------------------------------
 -- Episode Data

@@ -3,13 +3,18 @@ package org.example.backend.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.example.backend.models.User;
 import org.example.backend.models.Serie;
+import org.example.backend.repository.SerieRepository;
+import org.example.backend.repository.UserRepository;
 import org.example.backend.service.JwtService;
+import org.example.backend.service.LoginService;
 import org.example.backend.service.UserService;
 import org.example.backend.service.RecommendationService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @RestController
@@ -20,18 +25,25 @@ public class UserController {
     public final UserService service;
     public final RecommendationService serviceRecommandation;
     private final JwtService jwtService;
+    private final LoginService loginService;
+    private final SerieRepository serieRepository;
+    private final UserRepository userRepository;
 
 
-    public UserController(UserService service, RecommendationService serviceRecommandation, JwtService jwtService) {
+    public UserController(UserService service, RecommendationService serviceRecommandation, JwtService jwtService, LoginService loginService, SerieRepository serieRepository, UserRepository userRepository) {
         this.service = service;
         this.serviceRecommandation = serviceRecommandation;
         this.jwtService = jwtService;
+        this.serieRepository = serieRepository;
+        this.userRepository = userRepository;
+        this.loginService = loginService;
+
     }
 
     // Get
     @GetMapping("/getAllUsers")
     public ResponseEntity<?> getAllUsers(@RequestHeader("Authorization") String authHeader) {
-        jwtService.validateToken(authHeader);;
+        //jwtService.validateToken(authHeader);;
         return ResponseEntity.ok(service.findAllUsers());
     }
 
@@ -40,9 +52,18 @@ public class UserController {
         return service.findUsersByName(name);
     }
 
-    @GetMapping("/{id}/history")
-    public List<Serie> getHistoryById(@PathVariable Long id){
-        return service.findHistoryById(id);
+    @GetMapping("/history")
+    public ResponseEntity<?> getHistoryById(@RequestHeader("Authorization") String authheader){
+        //return service.findHistoryById(id);
+        try {
+            String token = jwtService.validateAndReturnToken(authheader);
+            String email = loginService.extractEmail(token);
+            List<Serie> history = service.findHistoryByEmail(email);
+
+            return ResponseEntity.ok(history);
+        } catch (RuntimeException error){
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("error", error.getMessage()));
+        }
     }
 
     @GetMapping("/{id}")
@@ -51,14 +72,33 @@ public class UserController {
     }
 
     // Post
-    @PostMapping("/{id}/history/{seriesId}")
-    public User markSerieAsView(@PathVariable Long id, @PathVariable Long seriesId) {
-        return service.markSerieAsView(id, seriesId);
+    //@PostMapping("/{id}/history/{seriesId}")
+    @PostMapping("/history/{seriesId}")
+    public ResponseEntity<?> markSerieAsView(@RequestHeader("Authorization") String authHeader, @PathVariable Long seriesId) {
+        try {
+            String token = jwtService.validateAndReturnToken(authHeader);
+            String email = loginService.extractEmail(token);
+            if (email == null){
+                throw new RuntimeException("Email introuvable");
+            }
+
+            return ResponseEntity.ok(service.markSerieAsView(email, seriesId));
+        } catch (RuntimeException error) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("error", error.getMessage()));
+        }
     }
 
-    @GetMapping("/{id}/recommendations")
-    public List<Serie> getRecommendation(@PathVariable Long id){
-        return serviceRecommandation.getRecommendation(id);
+    @GetMapping("/recommendations")
+    public ResponseEntity<?> getRecommendation(@RequestHeader("Authorization") String authheader){
+        try {
+
+            String token = jwtService.validateAndReturnToken(authheader);
+            String email = loginService.extractEmail(token);
+
+            return ResponseEntity.ok(serviceRecommandation.getRecommendation(email));
+        } catch (RuntimeException error){
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("error", error.getMessage()));
+        }
     }
 
     @PostMapping("/createUser")

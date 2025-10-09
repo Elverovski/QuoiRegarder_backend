@@ -2,12 +2,10 @@ package org.example.backend.service;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import io.jsonwebtoken.security.SignatureException;
 import org.example.backend.models.User;
 import org.example.backend.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -21,6 +19,7 @@ public class LoginService {
     private final PasswordEncoder passwordEncoder  = new BCryptPasswordEncoder();
     private final UserRepository userRepository;
     private final String SECRET_KEY = "UneCleTresLongueEtAleatoireDePlusDe32Caracteres";
+
 
     public LoginService(UserRepository userRepository){
         //this.passwordEncoder = new BCryptPasswordEncoder();

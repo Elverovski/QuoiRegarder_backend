@@ -23,6 +23,7 @@ public class RatingController {
     private final RatingsRepository ratingsRepository;
     private final LoginService loginService;
 
+    // Injection par constructeur
     public RatingController(RatingsService ratingsService, JwtService jwtService, LoginService loginService, RatingsRepository ratingsRepository){
         this.ratingsService = ratingsService;
         this.jwtService = jwtService;
@@ -30,17 +31,20 @@ public class RatingController {
         this.ratingsRepository = ratingsRepository;
     }
 
+    // GET: permet d'obtenir tous les ratings des utilisateurs
+    /////////////////////////////////// GET //////////////////////////////////////////////////////////
     @GetMapping("/getAllRates")
     public List<Ratings> getAllRates(){
         return ratingsRepository.findAll();
     }
 
+    // GET: permet d'obtenir la moyenne de ratings d'une serie
     @GetMapping("/serie/{id}")
     public ResponseEntity<?> getSerieAverage(@PathVariable Long id) {
         return ResponseEntity.ok(ratingsService.getAverageSerieRating(id));
     }
 
-
+    // GET: permet d'avoir la moyenne de ratings d'une episode
     @GetMapping("/episode/{id}")
     public ResponseEntity<?> getEpisodeAverage(@PathVariable Long id) {
         return ResponseEntity.ok(ratingsService.getAverageEpisodeRating(id));
@@ -53,15 +57,15 @@ public class RatingController {
             String responseToken = jwtService.validateAndReturnToken(authHeader);
             String email = loginService.extractEmail(responseToken);
 
-            return ResponseEntity.ok(ratingsService.rateEpisode(idEpisode, email, score));
+            return ResponseEntity.ok(ratingsService.rateEpisode(id, email, score));
 
         } catch (RuntimeException error) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                    .body(Map.of("error", error));
+                    .body(Map.of("error", error.getMessage()));
         }
     }
 
-    // POST
+    // POST: permet de rating une serie
     @PostMapping("/serie/{id}")
     public ResponseEntity<?> rateSerie(@RequestHeader("Authorization") String authHeader, @PathVariable Long id, @RequestBody int scoreRate){
         try {
@@ -72,7 +76,22 @@ public class RatingController {
             return ResponseEntity.ok(ratingsService.rateSerie(id, email,  scoreRate));
         } catch (RuntimeException error ) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                    .body(Map.of("error", error));
+                    .body(Map.of("error", error.getMessage()));
+        }
+    }
+
+    //Update
+    @PutMapping("/serie/{id}")
+    public ResponseEntity<?> updateRateSerie(@RequestHeader("Authorization") String authHeader, @PathVariable Long id, @RequestBody int score){
+        try {
+            String responseToken = jwtService.validateAndReturnToken(authHeader);
+            String email = loginService.extractEmail(responseToken);
+
+            return ResponseEntity.ok(ratingsService.updateRateSerie(id, email, score));
+
+        } catch (RuntimeException error) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(Map.of("error", error.getMessage()));
         }
     }
 
