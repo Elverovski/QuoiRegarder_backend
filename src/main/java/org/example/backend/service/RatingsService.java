@@ -63,29 +63,41 @@ public class RatingsService {
         if (serie == null) {
             throw new RuntimeException("Serie introuvable");
         }
-        ;
 
         User user = userRepository.findUserByEmail(email);
 
         if (user == null) {
             throw new RuntimeException("Utilisateur introuvable");
         }
+
+        Ratings isSerieAlreadyRate = ratingsRepository.findRatingsByUserIdAndSerie(user, serie);
+        if (isSerieAlreadyRate != null) {
+            throw new RuntimeException("Vous avez déja ajouté un rate à cette serie");
+        }
+
+        if (scoreRate > 100 | scoreRate < 0){
+            throw new RuntimeException("Score doit être compris entre 0 et 100");
+        }
+
         Ratings rateSerie = new Ratings();
         rateSerie.setUserId(user);
         rateSerie.setSerie(serie);
         rateSerie.setScore(scoreRate);
 
         ratingsRepository.save(rateSerie);
+
+        Double averageSerie = getAverageSerieRating(idSerie);
+        serie.setNote(averageSerie);
+        serieRepository.save(serie);
         return "Serie rate avec succès";
     }
 
+    // update le rate d'une serie
+    public String updateRateSerie(Long idSerie, String email, int scoreRate) {
+        Serie serie = serieRepository.findSerieById(idSerie);
 
-    // update le rate d'une episode
-    public String updateRateEpisode(Long idEpisode, String email, int scoreRate) {
-        Episode episode = episodeRepository.findEpisodeById(idEpisode);
-
-        if (episode == null) {
-            throw new RuntimeException("Episode introuvable");
+        if (serie == null) {
+            throw new RuntimeException("Serie introuvable");
         }
 
         User user = userRepository.findUserByEmail(email);
@@ -94,32 +106,39 @@ public class RatingsService {
             throw new RuntimeException("Utilisateur introuvable");
         }
 
-        Ratings rateEpisode = ratingsRepository.findRatingsByUserIdAndEpisode(user, episode);
-        rateEpisode.setScore(scoreRate);
+        Ratings rateSerie = ratingsRepository.findRatingsByUserIdAndSerie(user, serie);
 
-        ratingsRepository.save(rateEpisode);
-        return "Episode update rate avec succès";
-    }
-
-    public Ratings getRatingByEpisodeId(Long id) {
-        Episode episode = episodeRepository.findEpisodeById(id);
-
-        if (episode == null) {
-            throw new RuntimeException("Episode introuvable");
+        if (rateSerie == null) {
+            throw new RuntimeException("impossible de update ! Rate introuvable");
         }
 
-        Ratings ratings = ratingsRepository.findRatingsByEpisode(episode);
+        if (scoreRate > 100 | scoreRate < 0){
+            throw new RuntimeException("Score doit être compris entre 0 et 100");
+        }
 
-        return ratings;
+        rateSerie.setScore(scoreRate);
+        ratingsRepository.save(rateSerie);
+
+        Double averageSerie = getAverageSerieRating(idSerie);
+        serie.setNote(averageSerie);
+        serieRepository.save(serie);
+        return "Serie update rate avec succès";
     }
+
 
     public Double getAverageSerieRating(Long serieId) {
-        return ratingsRepository.getAverageSerieRating(serieId);
+
+        Double averageSerie = ratingsRepository.getAverageSerieRating(serieId);
+
+        if (averageSerie == null) {
+            return  0.0;
+        }
+        return averageSerie;
     }
 
-    public Double getAverageEpisodeRating(Long episodeId) {
-        return ratingsRepository.getAverageEpisodeRating(episodeId);
-    }
+    //public Double getAverageEpisodeRating(Long episodeId) {
+    //    return ratingsRepository.getAverageEpisodeRating(episodeId);
+    //}
 
 
 }

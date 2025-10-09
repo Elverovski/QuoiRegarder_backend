@@ -9,11 +9,10 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 public interface RatingsRepository extends JpaRepository<Ratings, Long> {
-    public Ratings findRatingsBySerie(Serie serie);
     public Ratings findRatingsByEpisode(Episode episode);
-
+    public Serie findRatingsBySerie(Serie serie);
     public Ratings findRatingsByUserIdAndEpisode(User user, Episode episode);
-
+    public Ratings findRatingsByUserIdAndSerie(User user, Serie serie);
     @Query("SELECT AVG(r.score) FROM Ratings r WHERE r.serie.id = :serieId")
     Double getAverageSerieRating(@Param("serieId") Long serieId);
 

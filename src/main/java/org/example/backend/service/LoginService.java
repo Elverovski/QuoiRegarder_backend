@@ -22,6 +22,7 @@ public class LoginService {
     private final UserRepository userRepository;
     private final String SECRET_KEY = "UneCleTresLongueEtAleatoireDePlusDe32Caracteres";
 
+
     public LoginService(UserRepository userRepository){
         //this.passwordEncoder = new BCryptPasswordEncoder();
         this.userRepository = userRepository;

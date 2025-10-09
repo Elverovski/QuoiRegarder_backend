@@ -32,22 +32,27 @@ public class RatingController {
 
     /////////////////////////////////// GET //////////////////////////////////////////////////////////
     @GetMapping("/getAllRates")
-    public List<Ratings> getAllRates(){
-        return ratingsRepository.findAll();
-    }
+    public ResponseEntity<?> getAllRates(){
+        try {
 
-    @GetMapping("/episode/{id}")
-    public ResponseEntity<?> getEpisodeById(@PathVariable Long id) {
-        return ResponseEntity.ok(ratingsService.getRatingByEpisodeId(id));
-    }
+            List<Ratings> allRatings = ratingsRepository.findAll();
+
+            if(allRatings.isEmpty()){
+                throw new RuntimeException("Aucun rate trouvé");
+            }
+
+            return ResponseEntity.ok(allRatings);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error",e.getMessage()));
+        }}
 
     ///////////////////////////////// GET RATE /////////////////////////////////////////////////////
-    @GetMapping("/episode/rate/{id}")
-    public ResponseEntity<?> getEpisodeAverage(@PathVariable Long id) {
-        return ResponseEntity.ok(ratingsService.getAverageEpisodeRating(id));
-    }
+    //@GetMapping("/episode/{id}")
+    //public ResponseEntity<?> getEpisodeAverage(@PathVariable Long id) {
+    //    return ResponseEntity.ok(ratingsService.getAverageEpisodeRating(id));
+    //}
 
-    @GetMapping("/serie/rate/{id}")
+    @GetMapping("/serie/{id}")
     public ResponseEntity<?> getSerieAverage(@PathVariable Long id) {
         return ResponseEntity.ok(ratingsService.getAverageSerieRating(id));
     }
@@ -83,13 +88,13 @@ public class RatingController {
     }
 
     //Update
-    @PutMapping("/episode/{id}")
-    public ResponseEntity<?> updateRateEpisode(@RequestHeader("Authorization") String authHeader, @PathVariable Long id, @RequestBody int score){
+    @PutMapping("/serie/{id}")
+    public ResponseEntity<?> updateRateSerie(@RequestHeader("Authorization") String authHeader, @PathVariable Long id, @RequestBody int score){
         try {
             String responseToken = jwtService.validateAndReturnToken(authHeader);
             String email = loginService.extractEmail(responseToken);
 
-            return ResponseEntity.ok(ratingsService.updateRateEpisode(id, email, score));
+            return ResponseEntity.ok(ratingsService.updateRateSerie(id, email, score));
 
         } catch (RuntimeException error) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)

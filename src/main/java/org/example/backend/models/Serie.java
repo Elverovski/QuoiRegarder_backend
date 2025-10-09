@@ -14,5 +14,5 @@ public class Serie {
     private String titre;
     private String genre;
     private int nbepisodes;
-    private float note;
+    private Double note;
 }
