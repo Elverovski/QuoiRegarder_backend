@@ -47,8 +47,8 @@ public class RatingController {
     }
 
     // POST
-    @PostMapping("/episode/{idEpisode}")
-    public ResponseEntity<?> rateEpisode(@RequestHeader("Authorization") String authHeader, @PathVariable Long idEpisode, @RequestBody int score){
+    @PostMapping("/episode/{idEpisode}/{score}")
+    public ResponseEntity<?> rateEpisode(@RequestHeader("Authorization") String authHeader, @PathVariable Long idEpisode, @PathVariable int score){
         try {
             String responseToken = jwtService.validateAndReturnToken(authHeader);
             String email = loginService.extractEmail(responseToken);
