@@ -5,6 +5,7 @@ import org.example.backend.models.Serie;
 import org.example.backend.repository.SerieRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -64,7 +65,19 @@ public class SerieService {
     }
 
     public List<Serie> getAllTendances(){
-        return serieRepository.findAllByOrderByNoteDesc();
+        //serieRepository.findAllByOrderByNoteDesc();
+        List<Serie> tendanceSerie = new ArrayList<>();
+        int compteur = 0;
+
+        for (Serie serie : serieRepository.findAllByOrderByNoteDesc()){
+            compteur++;
+            if (compteur > 10) {
+                tendanceSerie.add(serie);
+            }
+        }
+
+        return tendanceSerie;
     }
+
 
 }

@@ -73,7 +73,7 @@ public class UserController {
 
     // Post
     //@PostMapping("/{id}/history/{seriesId}")
-    @PostMapping("/history/{seriesId}")
+    @PutMapping("/history/{seriesId}")
     public ResponseEntity<?> markSerieAsView(@RequestHeader("Authorization") String authHeader, @PathVariable Long seriesId) {
         try {
             String token = jwtService.validateAndReturnToken(authHeader);

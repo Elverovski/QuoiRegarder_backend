@@ -45,15 +45,16 @@ public class UserService {
 
         return user.getHistory();
     }
+
     // PUT:
     public String markSerieAsView(String email, Long serieId) {
 
         User user = userRepository.findUserByEmail(email);
         Serie seriToAdd = serieRepository.findSerieById(serieId);
 
-        for (Serie serie : user.getHistory()){
-            if (serie.getId() == serieId){
-                throw new RuntimeException("Serie existe déja dans history");
+        for (Serie serie : user.getHistory()) {
+            if (serie.getId().equals(serieId)) {
+                throw new RuntimeException("Série déjà présente dans l'historique");
             }
         }
 
