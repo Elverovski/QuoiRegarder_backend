@@ -54,8 +54,9 @@ public class SerieController {
         return service.findSeriesByName(name);
     }
 
-    @GetMapping("/getSerieById")
-    public Serie getSerieById(@RequestParam Long id, @RequestHeader("Authorization") String authHeader){
+    @GetMapping("/{id}")
+    public Serie getSerieById(@PathVariable Long id, @RequestHeader("Authorization") String authHeader){
+        // a compléter
         jwtService.validateToken(authHeader);
         return service.findSeriesById(id);
     }

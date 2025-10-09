@@ -52,16 +52,44 @@ public class UserService {
         }
         return null;
     }
-    // PUT: permet de marquée une serie come deja vu
-    public User markSerieAsView(Long idUser, Long serieId) {
-        User user = userRepository.findUserById(idUser);
+    // GET: obtenir le historique d'un utilistaeur par son ID
+    public List<Serie> findHistoryByEmail(String email){
+        User user = userRepository.findUserByEmail(email);
+
+        if (user == null) {
+            throw new RuntimeException("Utilisateur introuvable");
+        }
+
+        return user.getHistory();
+    }
+
+    // GET: obtenir le historique d'un utilistaeur par son ID
+    public List<Serie> findHistoryByEmail(String email){
+        User user = userRepository.findUserByEmail(email);
+
+        if (user == null) {
+            throw new RuntimeException("Utilisateur introuvable");
+        }
+
+        return user.getHistory();
+    }
+    // PUT:
+    public String markSerieAsView(String email, Long serieId) {
+
+        User user = userRepository.findUserByEmail(email);
         Serie seriToAdd = serieRepository.findSerieById(serieId);
+
+        for (Serie serie : user.getHistory()){
+            if (serie.getId() == serieId){
+                throw new RuntimeException("Serie existe déja dans history");
+            }
+        }
 
         List<Serie> actualSeries = user.getHistory();
         actualSeries.add(seriToAdd);
         user.setHistory(actualSeries);
         userRepository.save(user);
-        return user;
+        return "serie a été marqué comme vue";
     }
 
     // PUT: permet d'update les donnes d'un utilistaeur

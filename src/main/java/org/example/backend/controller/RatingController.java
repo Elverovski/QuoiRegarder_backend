@@ -32,6 +32,7 @@ public class RatingController {
     }
 
     // GET: permet d'obtenir tous les ratings des utilisateurs
+    /////////////////////////////////// GET //////////////////////////////////////////////////////////
     @GetMapping("/getAllRates")
     public List<Ratings> getAllRates(){
         return ratingsRepository.findAll();
@@ -50,17 +51,17 @@ public class RatingController {
     }
 
     // POST: permet de rating une episode
-    @PostMapping("/episode/{idEpisode}")
-    public ResponseEntity<?> rateEpisode(@RequestHeader("Authorization") String authHeader, @PathVariable Long idEpisode, @RequestBody int score){
+    @PostMapping("/episode/{id}")
+    public ResponseEntity<?> rateEpisode(@RequestHeader("Authorization") String authHeader, @PathVariable Long id, @RequestBody int score){
         try {
             String responseToken = jwtService.validateAndReturnToken(authHeader);
             String email = loginService.extractEmail(responseToken);
 
-            return ResponseEntity.ok(ratingsService.rateEpisode(idEpisode, email, score));
+            return ResponseEntity.ok(ratingsService.rateEpisode(id, email, score));
 
         } catch (RuntimeException error) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                    .body(Map.of("error", error));
+                    .body(Map.of("error", error.getMessage()));
         }
     }
 
@@ -75,7 +76,22 @@ public class RatingController {
             return ResponseEntity.ok(ratingsService.rateSerie(id, email,  scoreRate));
         } catch (RuntimeException error ) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                    .body(Map.of("error", error));
+                    .body(Map.of("error", error.getMessage()));
+        }
+    }
+
+    //Update
+    @PutMapping("/serie/{id}")
+    public ResponseEntity<?> updateRateSerie(@RequestHeader("Authorization") String authHeader, @PathVariable Long id, @RequestBody int score){
+        try {
+            String responseToken = jwtService.validateAndReturnToken(authHeader);
+            String email = loginService.extractEmail(responseToken);
+
+            return ResponseEntity.ok(ratingsService.updateRateSerie(id, email, score));
+
+        } catch (RuntimeException error) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(Map.of("error", error.getMessage()));
         }
     }
 
