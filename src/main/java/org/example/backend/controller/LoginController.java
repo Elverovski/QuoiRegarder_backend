@@ -18,6 +18,7 @@ public class LoginController {
         this.loginService = loginService;
     }
 
+    // POST: permet a l'utilisateur d'avoir le contenu de la page. Note: si il est pas logue il vera pas le contenu de la page
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody User user) {
         try {

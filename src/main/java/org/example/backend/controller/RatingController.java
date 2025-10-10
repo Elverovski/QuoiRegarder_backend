@@ -23,6 +23,7 @@ public class RatingController {
     private final RatingsRepository ratingsRepository;
     private final LoginService loginService;
 
+    // Injection par constructeur
     public RatingController(RatingsService ratingsService, JwtService jwtService, LoginService loginService, RatingsRepository ratingsRepository){
         this.ratingsService = ratingsService;
         this.jwtService = jwtService;
@@ -30,36 +31,28 @@ public class RatingController {
         this.ratingsRepository = ratingsRepository;
     }
 
+    // GET: permet d'obtenir tous les ratings des utilisateurs
     /////////////////////////////////// GET //////////////////////////////////////////////////////////
     @GetMapping("/getAllRates")
-    public ResponseEntity<?> getAllRates(){
-        try {
+    public List<Ratings> getAllRates(){
+        return ratingsRepository.findAll();
+    }
 
-            List<Ratings> allRatings = ratingsRepository.findAll();
-
-            if(allRatings.isEmpty()){
-                throw new RuntimeException("Aucun rate trouvé");
-            }
-
-            return ResponseEntity.ok(allRatings);
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error",e.getMessage()));
-        }}
-
-    ///////////////////////////////// GET RATE /////////////////////////////////////////////////////
-    //@GetMapping("/episode/{id}")
-    //public ResponseEntity<?> getEpisodeAverage(@PathVariable Long id) {
-    //    return ResponseEntity.ok(ratingsService.getAverageEpisodeRating(id));
-    //}
-
+    // GET: permet d'obtenir la moyenne de ratings d'une serie
     @GetMapping("/serie/{id}")
     public ResponseEntity<?> getSerieAverage(@PathVariable Long id) {
         return ResponseEntity.ok(ratingsService.getAverageSerieRating(id));
     }
 
-    /////////////////////////////////////////// POST ////////////////////////////////////////////////
-    @PostMapping("/episode/{id}")
-    public ResponseEntity<?> rateEpisode(@RequestHeader("Authorization") String authHeader, @PathVariable Long id, @RequestBody int score){
+    // GET: permet d'avoir la moyenne de ratings d'une episode
+    @GetMapping("/episode/{id}")
+    public ResponseEntity<?> getEpisodeAverage(@PathVariable Long id) {
+        return ResponseEntity.ok(ratingsService.getAverageEpisodeRating(id));
+    }
+
+    // POST
+    @PostMapping("/episode/{idEpisode}/{score}")
+    public ResponseEntity<?> rateEpisode(@RequestHeader("Authorization") String authHeader, @PathVariable Long idEpisode, @PathVariable int score){
         try {
             String responseToken = jwtService.validateAndReturnToken(authHeader);
             String email = loginService.extractEmail(responseToken);
@@ -75,6 +68,7 @@ public class RatingController {
     // POST
     @PostMapping("/serie/{id}/{scoreRate}")
     public ResponseEntity<?> rateSerie(@RequestHeader("Authorization") String authHeader, @PathVariable Long id, @PathVariable int scoreRate){
+
         try {
             String responseToken = jwtService.validateAndReturnToken(authHeader);
             String email = loginService.extractEmail(responseToken);
