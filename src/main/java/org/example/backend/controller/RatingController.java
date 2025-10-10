@@ -57,7 +57,7 @@ public class RatingController {
             String responseToken = jwtService.validateAndReturnToken(authHeader);
             String email = loginService.extractEmail(responseToken);
 
-            return ResponseEntity.ok(ratingsService.rateEpisode(id, email, score));
+            return ResponseEntity.ok(ratingsService.rateEpisode(idEpisode, email, score));
 
         } catch (RuntimeException error) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
@@ -65,9 +65,10 @@ public class RatingController {
         }
     }
 
-    // POST: permet de rating une serie
-    @PostMapping("/serie/{id}")
-    public ResponseEntity<?> rateSerie(@RequestHeader("Authorization") String authHeader, @PathVariable Long id, @RequestBody int scoreRate){
+    // POST
+    @PostMapping("/serie/{id}/{scoreRate}")
+    public ResponseEntity<?> rateSerie(@RequestHeader("Authorization") String authHeader, @PathVariable Long id, @PathVariable int scoreRate){
+
         try {
             String responseToken = jwtService.validateAndReturnToken(authHeader);
             String email = loginService.extractEmail(responseToken);
@@ -81,13 +82,13 @@ public class RatingController {
     }
 
     //Update
-    @PutMapping("/serie/{id}")
-    public ResponseEntity<?> updateRateSerie(@RequestHeader("Authorization") String authHeader, @PathVariable Long id, @RequestBody int score){
+    @PutMapping("/serie/{id}/{scoreRate}")
+    public ResponseEntity<?> updateRateSerie(@RequestHeader("Authorization") String authHeader, @PathVariable Long id, @PathVariable int scoreRate){
         try {
             String responseToken = jwtService.validateAndReturnToken(authHeader);
             String email = loginService.extractEmail(responseToken);
 
-            return ResponseEntity.ok(ratingsService.updateRateSerie(id, email, score));
+            return ResponseEntity.ok(ratingsService.updateRateSerie(id, email, scoreRate));
 
         } catch (RuntimeException error) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)

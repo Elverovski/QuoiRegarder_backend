@@ -42,10 +42,10 @@ public class SerieController {
         return ResponseEntity.ok(service.findAllSeries());
     }
 
-    @GetMapping("/getALlTendances")
+    @GetMapping("/getAllTendances")
     public List<Serie> getAllTendances(@RequestHeader("Authorization") String authHeader){
         jwtService.validateToken(authHeader);
-        return ResponseEntity.ok(service.getAllTendances()).getBody();
+        return service.getAllTendances();
     }
 
     @GetMapping("/getSerieTitre")
