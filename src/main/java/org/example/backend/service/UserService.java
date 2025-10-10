@@ -52,16 +52,7 @@ public class UserService {
         }
         return null;
     }
-    // GET: obtenir le historique d'un utilistaeur par son ID
-    public List<Serie> findHistoryByEmail(String email){
-        User user = userRepository.findUserByEmail(email);
 
-        if (user == null) {
-            throw new RuntimeException("Utilisateur introuvable");
-        }
-
-        return user.getHistory();
-    }
 
     // GET: obtenir le historique d'un utilistaeur par son ID
     public List<Serie> findHistoryByEmail(String email){

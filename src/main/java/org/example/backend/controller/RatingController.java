@@ -57,7 +57,7 @@ public class RatingController {
             String responseToken = jwtService.validateAndReturnToken(authHeader);
             String email = loginService.extractEmail(responseToken);
 
-            return ResponseEntity.ok(ratingsService.rateEpisode(id, email, score));
+            return ResponseEntity.ok(ratingsService.rateEpisode(idEpisode, email, score));
 
         } catch (RuntimeException error) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)

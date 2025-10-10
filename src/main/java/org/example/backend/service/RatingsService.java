@@ -136,9 +136,9 @@ public class RatingsService {
         return averageSerie;
     }
 
-    //public Double getAverageEpisodeRating(Long episodeId) {
-    //    return ratingsRepository.getAverageEpisodeRating(episodeId);
-    //}
+    public Double getAverageEpisodeRating(Long episodeId) {
+        return ratingsRepository.getAverageEpisodeRating(episodeId);
+    }
 
 
 }
