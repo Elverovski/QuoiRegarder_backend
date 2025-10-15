@@ -31,26 +31,29 @@ public class RatingController {
         this.ratingsRepository = ratingsRepository;
     }
 
-    // GET: permet d'obtenir tous les ratings des utilisateurs
-    /////////////////////////////////// GET //////////////////////////////////////////////////////////
+    ///////////////////// GET ///////////////////////////////////
+
+    // Récupère toutes les rates
     @GetMapping("/getAllRates")
     public List<Ratings> getAllRates(){
         return ratingsRepository.findAll();
     }
 
-    // GET: permet d'obtenir la moyenne de ratings d'une serie
+    // Récupère la moyenne de ratings d'une serie
     @GetMapping("/serie/{id}")
     public ResponseEntity<?> getSerieAverage(@PathVariable Long id) {
         return ResponseEntity.ok(ratingsService.getAverageSerieRating(id));
     }
 
-    // GET: permet d'avoir la moyenne de ratings d'une episode
+    // Récupère la moyenne de ratings d'une episode
     @GetMapping("/episode/{id}")
     public ResponseEntity<?> getEpisodeAverage(@PathVariable Long id) {
         return ResponseEntity.ok(ratingsService.getAverageEpisodeRating(id));
     }
 
-    // POST
+    ///////////////////// POST ///////////////////////////////////
+
+    // ajouter un score a une episode
     @PostMapping("/episode/{idEpisode}/{score}")
     public ResponseEntity<?> rateEpisode(@RequestHeader("Authorization") String authHeader, @PathVariable Long idEpisode, @PathVariable int score){
         try {
@@ -65,7 +68,7 @@ public class RatingController {
         }
     }
 
-    // POST
+    // ajouter un score a une serie
     @PostMapping("/serie/{id}/{scoreRate}")
     public ResponseEntity<?> rateSerie(@RequestHeader("Authorization") String authHeader, @PathVariable Long id, @PathVariable int scoreRate){
 
@@ -81,7 +84,7 @@ public class RatingController {
         }
     }
 
-    //Update
+    // modifier le rate d'une serie
     @PutMapping("/serie/{id}/{scoreRate}")
     public ResponseEntity<?> updateRateSerie(@RequestHeader("Authorization") String authHeader, @PathVariable Long id, @PathVariable int scoreRate){
         try {
@@ -95,7 +98,4 @@ public class RatingController {
                     .body(Map.of("error", error.getMessage()));
         }
     }
-
-
-
 }

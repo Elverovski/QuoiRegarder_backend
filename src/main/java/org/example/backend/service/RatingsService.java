@@ -125,9 +125,8 @@ public class RatingsService {
         return "Serie update rate avec succès";
     }
 
-
+    // Retourne la moyenne des notes d'une série
     public Double getAverageSerieRating(Long serieId) {
-
         Double averageSerie = ratingsRepository.getAverageSerieRating(serieId);
 
         if (averageSerie == null) {
@@ -139,6 +138,4 @@ public class RatingsService {
     public Double getAverageEpisodeRating(Long episodeId) {
         return ratingsRepository.getAverageEpisodeRating(episodeId);
     }
-
-
 }

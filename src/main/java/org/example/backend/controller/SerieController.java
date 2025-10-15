@@ -26,34 +26,29 @@ public class SerieController {
         this.jwtService = jwtService;
     }
 
-    // Get
-        @GetMapping("/getAllSeries")
+    ///////////////////// GET ///////////////////////////////////
+    // Récupère toutes les séries
+    @GetMapping("/getAllSeries")
     public ResponseEntity<?> getAllSeries(@RequestHeader("Authorization") String authHeader){
-        // validation du token sans se reconnecter
-        //if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-            //return ResponseEntity.status(401).body("Token manquant");
-        //}
-        //String token = authHeader.substring(7);
-        //if (!loginService.isTokenValid(token)){
-        //    return ResponseEntity.status(401).body("Token invalide ou expiré");
-        //}
-
         jwtService.validateToken(authHeader);
         return ResponseEntity.ok(service.findAllSeries());
     }
 
+    // Récupère les séries tendances
     @GetMapping("/getAllTendances")
     public List<Serie> getAllTendances(@RequestHeader("Authorization") String authHeader){
         jwtService.validateToken(authHeader);
         return service.getAllTendances();
     }
 
+    // Recherche une série par titre
     @GetMapping("/getSerieTitre")
     public Serie getSerieByTitre(@RequestParam String name, @RequestHeader("Authorization") String authHeader){
         jwtService.validateToken(authHeader);
         return service.findSeriesByName(name);
     }
 
+    // Récupère une série par id
     @GetMapping("/{id}")
     public Serie getSerieById(@PathVariable Long id, @RequestHeader("Authorization") String authHeader){
         // a compléter
