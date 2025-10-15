@@ -11,6 +11,7 @@ public class JwtService {
         this.loginService = loginService;
     }
 
+    // valide le token en récupérant dans le header
     public ResponseEntity<String> validateToken(String authHeader) {
         // vérifie si le token est présent
         if (authHeader == null | !authHeader.startsWith("Bearer ")) {
@@ -29,7 +30,7 @@ public class JwtService {
         return ResponseEntity.ok("Token valide");
     }
 
-
+    // valide le token pui le renvoie
     public String validateAndReturnToken(String authHeader) {
         // vérifie si le token est présent
         if (authHeader == null | !authHeader.startsWith("Bearer ")) {
@@ -49,3 +50,5 @@ public class JwtService {
     }
 
 }
+
+// utilisé uniquement dans les routes utilisé dans le frontend. le reste était optionnel

@@ -23,7 +23,6 @@ public class LoginController {
     public ResponseEntity<?> login(@RequestBody User user) {
         try {
             String token = loginService.login(user.getEmail(), user.getPassword());
-            //String email = loginService.extractEmail(token);
             return ResponseEntity.ok(Map.of("token", token));
 
         } catch (RuntimeException e) {
@@ -32,5 +31,4 @@ public class LoginController {
                     .body(Map.of("error", "Email ou mot de passe incorrect"));
         }
     }
-
 }

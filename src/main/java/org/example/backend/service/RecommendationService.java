@@ -20,6 +20,7 @@ public class RecommendationService {
         this.serieRepository = serieRepository;
     }
 
+    // Génère des recommandations de séries selon les genres vus par l'utilisateur
     public List<Serie> getRecommendation(String email) {
         User user = userRepository.findUserByEmail(email);
 
