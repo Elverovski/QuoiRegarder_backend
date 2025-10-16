@@ -19,18 +19,18 @@ public class UserService {
         this.userRepository = userRepository;
         this.serieRepository = serieRepository;
     }
-    // GET: permet d'obtenir tous les utilisateurs
+
+    // Récupère tous les utilisateurs
     public List<User> findAllUsers() {
         return userRepository.findAll();
     }
 
-
-    // GET: permet d'obtenir un utilisateur par son Nom
+    // Récupère un utilisateur par son nom
     public User findUsersByName(String name) {
         return userRepository.findUserByNom(name);
     }
 
-    // GET: permet d'obtenir un utilisataeur par son ID
+    // Récupère un utilisateur par son id
     public User findUserById(Long id)
     {
         try {
@@ -41,20 +41,7 @@ public class UserService {
         return null;
     }
 
-    // GET: permet d'obtenir le historique d'un utilistaeur par son ID
-    public List<Serie> findHistoryById(Long id){
-        try{
-            User user = userRepository.findUserById(id);
-            return user.getHistory();
-
-        } catch (Exception e) {
-            System.out.println("ID invalide");
-        }
-        return null;
-    }
-
-
-    // GET: obtenir le historique d'un utilistaeur par son ID
+    // Récupère l'historique des séries d'un utilisateur via son email
     public List<Serie> findHistoryByEmail(String email){
         User user = userRepository.findUserByEmail(email);
 
@@ -65,7 +52,7 @@ public class UserService {
         return user.getHistory();
     }
 
-    // PUT:
+    // ajouter une série à l'historique de l'utilisateur
     public String markSerieAsView(String email, Long serieId) {
 
         User user = userRepository.findUserByEmail(email);
@@ -84,7 +71,7 @@ public class UserService {
         return "serie a été marqué comme vue";
     }
 
-    // PUT: permet d'update les donnes d'un utilistaeur
+    // Met à jour les informations d'un utilisateur existant
     public User updateUser(User newOne, Long id) {
         return userRepository.findById(id)
                 .map(user -> {
@@ -96,18 +83,13 @@ public class UserService {
                 }).orElseThrow(() -> new ModelNotFoundException(id, "User"));
     }
 
-    // DELETE: permet d'effacer un utilisateur
+    // Supprime un utilisateur
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
     }
 
-    // POST: permet de creer un nouveau utilisateur
+    // Crée un nouvel utilisateur
     public User createUser(User newUser) {
         return userRepository.save(newUser);
     }
-
-
-    
-
-
 }

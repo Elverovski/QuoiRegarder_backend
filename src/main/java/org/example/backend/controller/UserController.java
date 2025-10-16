@@ -57,7 +57,7 @@ public class UserController {
     )
     @GetMapping("/getAllUsers")
     public ResponseEntity<?> getAllUsers(@RequestHeader("Authorization") String authHeader) {
-        //jwtService.validateToken(authHeader);;
+        jwtService.validateToken(authHeader);
         return ResponseEntity.ok(service.findAllUsers());
     }
 
@@ -90,7 +90,6 @@ public class UserController {
     )
     @GetMapping("/history")
     public ResponseEntity<?> getHistoryById(@RequestHeader("Authorization") String authheader){
-        //return service.findHistoryById(id);
         try {
             String token = jwtService.validateAndReturnToken(authheader);
             String email = loginService.extractEmail(token);
@@ -201,6 +200,7 @@ public class UserController {
         return service.updateUser(newOne, id);
     }
 
+    ///////////////////// DELETE ///////////////////////////////////
 
     ///////////////////////////////////
     // DELETE - Supprimer un utilisateur
@@ -217,6 +217,4 @@ public class UserController {
     public void deleteUser(@PathVariable Long id) {
         service.deleteUser(id);
     }
-
-
 }

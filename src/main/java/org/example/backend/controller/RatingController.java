@@ -163,7 +163,4 @@ public class RatingController {
                     .body(Map.of("error", error.getMessage()));
         }
     }
-
-
-
 }

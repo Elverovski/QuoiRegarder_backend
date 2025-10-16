@@ -44,15 +44,6 @@ public class SerieController {
     )
     @GetMapping("/getAllSeries")
     public ResponseEntity<?> getAllSeries(@RequestHeader("Authorization") String authHeader){
-        // validation du token sans se reconnecter
-        //if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-            //return ResponseEntity.status(401).body("Token manquant");
-        //}
-        //String token = authHeader.substring(7);
-        //if (!loginService.isTokenValid(token)){
-        //    return ResponseEntity.status(401).body("Token invalide ou expiré");
-        //}
-
         jwtService.validateToken(authHeader);
         return ResponseEntity.ok(service.findAllSeries());
     }

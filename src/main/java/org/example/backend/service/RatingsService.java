@@ -125,7 +125,7 @@ public class RatingsService {
         return "Serie update rate avec succès";
     }
 
-
+    // Retourne la moyenne des notes d'une série
     public Double getAverageSerieRating(Long serieId) {
         return ratingsRepository.getAverageSerieRating(serieId);
     }
@@ -133,6 +133,4 @@ public class RatingsService {
     public Double getAverageEpisodeRating(Long episodeId) {
         return ratingsRepository.getAverageEpisodeRating(episodeId);
     }
-
-
 }
