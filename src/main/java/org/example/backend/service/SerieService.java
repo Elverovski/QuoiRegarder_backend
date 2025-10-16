@@ -71,11 +71,12 @@ public class SerieService {
 
         for (Serie serie : serieRepository.findAllByOrderByNoteDesc()){
             compteur++;
-            if (compteur > 10) {
+            if (compteur <= 10) {
                 tendanceSerie.add(serie);
+                System.out.println(compteur);
+                System.out.println(tendanceSerie);
             }
         }
-
         return tendanceSerie;
     }
 
