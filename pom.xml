@@ -115,7 +115,7 @@
                 </executions>
                 <configuration>
                     <generatorName>html</generatorName>
-                    <inputSpec>http://localhost:8080/v3/api-docs</inputSpec>
+                    <inputSpec>${project.basedir}/src/main/resources/openapi.json</inputSpec>
                     <output>${project.build.directory}/site/apidocs</output>
                     <skip>${skipOpenApi}</skip>
                 </configuration>
