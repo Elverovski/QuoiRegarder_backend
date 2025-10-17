@@ -20,8 +20,13 @@ public class RecommendationService {
         this.serieRepository = serieRepository;
     }
 
-    public List<Serie> getRecommendation(Long idUser) {
-        User user = userRepository.findUserById(idUser);
+    // Génère des recommandations de séries selon les genres vus par l'utilisateur
+    public List<Serie> getRecommendation(String email) {
+        User user = userRepository.findUserByEmail(email);
+
+        if (user == null){
+            throw new RuntimeException("Utilisateur introuvable");
+        }
 
         List<Serie> history = user.getHistory();
         if (history == null) {

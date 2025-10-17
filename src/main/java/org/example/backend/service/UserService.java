@@ -19,41 +19,59 @@ public class UserService {
         this.userRepository = userRepository;
         this.serieRepository = serieRepository;
     }
-    // GET: obtenir tous les utilisateurs
+
+    // Récupère tous les utilisateurs
     public List<User> findAllUsers() {
         return userRepository.findAll();
     }
 
-
-    // GET: obtenir un utilisateur par son Nom
+    // Récupère un utilisateur par son nom
     public User findUsersByName(String name) {
         return userRepository.findUserByNom(name);
     }
 
-    // GET: obtenir un utilisataeur par son ID
-    public User findUserById(Long id){
-        return userRepository.findUserById(id);
+    // Récupère un utilisateur par son id
+    public User findUserById(Long id)
+    {
+        try {
+            return userRepository.findUserById(id);
+        } catch (Exception e) {
+            System.out.println("ID invalide");
+        }
+        return null;
     }
 
-    // GET: obtenir le historique d'un utilistaeur par son ID
-    public List<Serie> findHistoryById(Long id){
-        User user = userRepository.findUserById(id);
+    // Récupère l'historique des séries d'un utilisateur via son email
+    public List<Serie> findHistoryByEmail(String email){
+        User user = userRepository.findUserByEmail(email);
+
+        if (user == null) {
+            throw new RuntimeException("Utilisateur introuvable");
+        }
+
         return user.getHistory();
     }
-    // PUT:
-    public User markSerieAsView(Long idUser, Long serieId) {
 
-        User user = userRepository.findUserById(idUser);
+    // ajouter une série à l'historique de l'utilisateur
+    public String markSerieAsView(String email, Long serieId) {
+
+        User user = userRepository.findUserByEmail(email);
         Serie seriToAdd = serieRepository.findSerieById(serieId);
+
+        for (Serie serie : user.getHistory()) {
+            if (serie.getId().equals(serieId)) {
+                throw new RuntimeException("Série déjà présente dans l'historique");
+            }
+        }
 
         List<Serie> actualSeries = user.getHistory();
         actualSeries.add(seriToAdd);
         user.setHistory(actualSeries);
         userRepository.save(user);
-        return user;
+        return "serie a été marqué comme vue";
     }
 
-    // PUT: update les donnes d'un utilistaeur
+    // Met à jour les informations d'un utilisateur existant
     public User updateUser(User newOne, Long id) {
         return userRepository.findById(id)
                 .map(user -> {
@@ -65,18 +83,13 @@ public class UserService {
                 }).orElseThrow(() -> new ModelNotFoundException(id, "User"));
     }
 
-    // DELETE: effacer un utilisateur
+    // Supprime un utilisateur
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
     }
 
-    // POST: creer un nouveau utilisateur
+    // Crée un nouvel utilisateur
     public User createUser(User newUser) {
         return userRepository.save(newUser);
     }
-
-
-    
-
-
 }
