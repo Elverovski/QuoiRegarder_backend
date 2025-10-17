@@ -36,3 +36,18 @@ Pour accéder aux endpoints protégés, envoyez l’Authorization header avec le
 ```bash
 git clone --branch <branche> https://github.com/Elverovski/QuoiRegarder_backend.git
 cd QuoiRegarder_backend
+```
+
+### 2. Pré-requis
+
+- Java JDK 17
+- Maven 
+- Docker 
+- Jenkins
+
+## Lancer le backend 
+```bash
+mvn clean install
+mvn spring-boot:run
+```
+
