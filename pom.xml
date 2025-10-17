@@ -28,6 +28,7 @@
     </scm>
     <properties>
         <java.version>17</java.version>
+        <skip.openapi>false</skip.openapi>
     </properties>
     <dependencies>
         <dependency>
@@ -112,6 +113,7 @@
                     <generatorName>html</generatorName>
                     <inputSpec>http://localhost:8080/v3/api-docs</inputSpec>
                     <output>${project.build.directory}/site/apidocs</output>
+                    <skip>${skip.openapi}</skip>
                 </configuration>
 
                 <executions>
@@ -125,10 +127,12 @@
                             <generatorName>html</generatorName>
                             <inputSpec>http://localhost:8080/v3/api-docs</inputSpec>
                             <output>${project.build.directory}/site/apidocs</output>
+                            <skip>${skip.openapi}</skip>
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
+
 
 
         </plugins>
