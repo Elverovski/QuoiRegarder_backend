@@ -72,27 +72,30 @@ public class SerieServiceTest {
     }
 
 
-    // Add to history
     @Test
-    void testaddToHistory(){
+    void testAddToHistory() {
         User user = new User();
         user.setId(5L);
-        List<Serie> history = new ArrayList<>();
-        user.setHistory(history);
+        user.setEmail("test@example.com");
+        user.setHistory(new ArrayList<>());
 
         Serie serie = new Serie();
         serie.setId(2L);
         serie.setTitre("Testing");
 
-        when(userRepository.findUserById(5L)).thenReturn(user);
+        when(userRepository.findUserByEmail("test@example.com")).thenReturn(user);
         when(serieRepository.findSerieById(2L)).thenReturn(serie);
         when(userRepository.save(user)).thenReturn(user);
 
-        User newOne = userService.markSerieAsView(5L, 2L);
-
-        assertEquals(1, newOne.getHistory().size());
-        assertEquals("Testing", newOne.getHistory().get(0).getTitre());
+        userService.markSerieAsView("test@example.com", 2L);
+        
+        assertEquals(1, user.getHistory().size());
+        assertEquals("Testing", user.getHistory().get(0).getTitre());
     }
+
+
+
+
 
 
 
