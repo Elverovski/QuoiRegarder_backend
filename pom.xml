@@ -103,7 +103,28 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+            <plugin>
+                <groupId>org.openapitools</groupId>
+                <artifactId>openapi-generator-maven-plugin</artifactId>
+                <version>7.8.0</version>
+                <executions>
+                    <execution>
+                        <id>generate-docs</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <generatorName>html</generatorName>
+                            <inputSpec>${project.build.directory}/openapi.json</inputSpec>
+                            <output>${project.build.directory}/site/apidocs</output>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+
         </plugins>
+
     </build>
 
 </project>
