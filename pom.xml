@@ -107,15 +107,23 @@
                 <groupId>org.openapitools</groupId>
                 <artifactId>openapi-generator-maven-plugin</artifactId>
                 <version>7.8.0</version>
+
+                <configuration>
+                    <generatorName>html</generatorName>
+                    <inputSpec>http://localhost:8080/v3/api-docs</inputSpec>
+                    <output>${project.build.directory}/site/apidocs</output>
+                </configuration>
+
                 <executions>
                     <execution>
-                        <id>generate-docs</id>
+                        <id>generate-html-docs</id>
                         <goals>
                             <goal>generate</goal>
                         </goals>
+                        <phase>verify</phase>
                         <configuration>
                             <generatorName>html</generatorName>
-                            <inputSpec>${project.build.directory}/openapi.json</inputSpec>
+                            <inputSpec>http://localhost:8080/v3/api-docs</inputSpec>
                             <output>${project.build.directory}/site/apidocs</output>
                         </configuration>
                     </execution>
