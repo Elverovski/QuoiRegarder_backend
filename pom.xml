@@ -98,34 +98,44 @@
 
     </dependencies>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.openapitools</groupId>
-                <artifactId>openapi-generator-maven-plugin</artifactId>
-                <version>7.8.0</version>
-                <executions>
-                    <execution>
-                        <id>generate-html-docs</id>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <phase>verify</phase>
-                    </execution>
-                </executions>
-                <configuration>
-                    <generatorName>html</generatorName>
-                    <inputSpec>http://localhost:8080/v3/api-docs</inputSpec>
-                    <output>${project.build.directory}/site/apidocs</output>
-                    <skip>${skipOpenApi}</skip>
-                </configuration>
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.openapitools</groupId>
+            <artifactId>openapi-generator-maven-plugin</artifactId>
+            <version>7.8.0</version>
+            <executions>
+                <execution>
+                    <id>generate-html-docs</id>
+                    <goals>
+                        <goal>generate</goal>
+                    </goals>
+                    <phase>verify</phase>
+                </execution>
+            </executions>
+            <configuration>
+                <generatorName>html</generatorName>
+                <inputSpec>http://localhost:8081/v3/api-docs</inputSpec>
+                <output>${project.build.directory}/site/apidocs</output>
+                <skip>${skipOpenApi}</skip>
+            </configuration>
+        </plugin>
 
-            </plugin>
+        <!-- Plugin manquant pour créer un JAR exécutable -->
+        <plugin>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+            <version>3.5.5</version>
+            <executions>
+                <execution>
+                    <goals>
+                        <goal>repackage</goal>
+                    </goals>
+                </execution>
+            </executions>
+        </plugin>
+    </plugins>
+</build>
 
-
-
-        </plugins>
-
-    </build>
 
 </project>
