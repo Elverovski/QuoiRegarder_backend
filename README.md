@@ -5,6 +5,10 @@ Ce projet fournit des endpoints pour gérer les utilisateurs, séries, historiqu
 
 ![Backend Overview](img.png)  
 ![Endpoints Overview](img_1.png)
+---
+### epic 4
+![img_3.png](./images/img_3.png)
+![img_2.png](./images/img_2.png)
 
 ---
 ## 🗂️ Structure du projet
@@ -50,4 +54,3 @@ cd QuoiRegarder_backend
 mvn clean install
 mvn spring-boot:run
 ```
-
