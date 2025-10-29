@@ -44,7 +44,7 @@ cd QuoiRegarder_backend
 
 ### Pré-requis
 
-- Java JDK 17
+- Java 
 - Maven 
 - Docker 
 - Jenkins
