@@ -36,21 +36,41 @@ Pour accéder aux endpoints protégés, envoyez l’Authorization header avec le
 
 ## 🚀 Installation et configuration
 
-### 1. Cloner le projet
+### Cloner le projet
 ```bash
 git clone --branch <branche> https://github.com/Elverovski/QuoiRegarder_backend.git
 cd QuoiRegarder_backend
 ```
 
-### 2. Pré-requis
+### Pré-requis
 
 - Java JDK 17
 - Maven 
 - Docker 
 - Jenkins
 
-## Lancer le backend 
+## 🐳 Execution aved docker compose
+- Build image
 ```bash
-mvn clean install
-mvn spring-boot:run
+docker compose build
+```
+
+- Lancement du stack
+```bash
+docker compose up -d
+```
+
+- Vérifier les services
+```bash
+docker compose ps
+```
+
+- Logs en direct du backend
+```bash
+docker compose logs -f backend
+```
+
+- Arrêt et nettoyage
+```bash
+docker compose down -v
 ```
