@@ -49,6 +49,8 @@ cd QuoiRegarder_backend
 - Docker 
 - Jenkins
 
+  ---
+
 ## 🐳 Execution aved docker compose
 - Build image
 ```bash
@@ -74,3 +76,43 @@ docker compose logs -f backend
 ```bash
 docker compose down -v
 ```
+
+---
+
+## ⚙️ Pipeline Jenkins
+Le projet inclut un Jenkinsfile permettant de builder, tester et notifier par courriel automatiquement le team dev.
+
+---
+
+## 🧰 Commandes Makefile
+
+- `make build` → construit l’image Docker  
+- `make run` → démarre un container fonctionnel  
+- `make exec` → ouvre un shell dans le container  
+- `make stop` → stoppe et supprime le container  
+- `make test` → exécute les tests unitaires  
+- `make restart` → fait *stop*, *build* et *run* pour réinitialiser le container
+
+---
+
+
+## 🧱 Stack technique
+
+| Composant | Version | Description |
+|------------|----------|-------------|
+| **Java (JDK)** | 17 | Langage principal utilisé pour le backend |
+| **Spring Boot** | 3.5.5 | Framework backend Java pour les API REST |
+| **Maven** | 3.9.8 | Gestionnaire de dépendances et de build |
+| **H2 Database** | — | Base de donnes principale (en memoire) |
+| **JWT (JJWT)** | 0.12.3 | Gestion des tokens d’authentification |
+| **Spring Security** | 3.5.5 | Sécurisation des endpoints |
+| **SpringDoc OpenAPI** | 2.5.0 | Génération automatique de la documentation Swagger |
+| **OpenAPI Generator Plugin** | 7.8.0 | Generation de documentation HTML dans `/target/site/apidocs` |
+| **JaCoCo** | 0.8.11 | Rapport de couverture de tests |
+| **Docker** | 25.0+ | Conteneurisation des services |
+| **Docker Compose** | 2.24+ | Orchestration des containers |
+| **Jenkins** | 2.462+ | Intégration continue (CI/CD) |
+| **Makefile** | — | Automatisation des commandes (build, test, run, etc.) |
+
+
+
