@@ -3,8 +3,8 @@
 Backend simple pour la gestion de séries, utilisateurs et recommandations.  
 Ce projet fournit des endpoints pour gérer les utilisateurs, séries, historiques, ratings et recommandations.
 
-![Backend Overview](img.png)  
-![Endpoints Overview](img_1.png)
+![Backend Overview](./images/img.png)  
+![Endpoints Overview](./images/img_1.png)
 ---
 ### epic 4
 ![img_3.png](./images/img_3.png)
